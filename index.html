@@ -6,146 +6,241 @@
     <title>Misi Kena Kick: Edisi Ibu RT</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #e5ddd5; }
-        .chat-bg { background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png'); }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #f0f2f5; }
+        .whatsapp-green { background-color: #075e54; }
+        .whatsapp-light-green { background-color: #25d366; }
+        .chat-bg { background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png'); background-color: #e5ddd5; }
         .bubble-left { position: relative; background: white; border-radius: 0 12px 12px 12px; }
         .bubble-left::after { content: ''; position: absolute; left: -10px; top: 0; width: 0; height: 0; border: 10px solid transparent; border-right-color: white; border-top-color: white; }
         .bubble-right { position: relative; background: #dcf8c6; border-radius: 12px 0 12px 12px; }
         .bubble-right::after { content: ''; position: absolute; right: -10px; top: 0; width: 0; height: 0; border: 10px solid transparent; border-left-color: #dcf8c6; border-top-color: #dcf8c6; }
-        .progress-bar { transition: width 0.5s ease-in-out; }
-        
-        /* Animasi sederhana untuk notifikasi */
-        @keyframes slideIn {
-            from { transform: translateY(20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
+        .progress-bar { transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
         .message-anim { animation: slideIn 0.3s ease-out; }
+        @keyframes slideIn { from { transform: translateY(10px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
     </style>
 </head>
-<body class="h-screen flex flex-col">
+<body class="h-screen overflow-hidden">
 
-    <!-- Header Grup -->
-    <div class="bg-[#075e54] text-white p-4 flex items-center shadow-md shrink-0">
-        <div class="w-10 h-10 bg-pink-100 rounded-full mr-3 overflow-hidden flex-shrink-0 border-2 border-white">
-            <!-- Menggunakan avatar yang lebih merepresentasikan profil ibu-ibu -->
-            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Nisrine&top=hijabMagical&clothing=overall&accessory=round" alt="Ibu RT">
+    <!-- HALAMAN UTAMA (LIST CHAT) -->
+    <div id="screen-home" class="h-full flex flex-col">
+        <div class="whatsapp-green text-white p-4 shadow-md shrink-0">
+            <div class="flex justify-between items-center mb-4">
+                <h1 class="text-xl font-semibold">WhatsApp</h1>
+                <div class="flex space-x-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" /></svg>
+                </div>
+            </div>
+            <div class="flex space-x-6 text-sm font-medium uppercase opacity-80">
+                <span class="pb-2 border-b-2 border-white">Chat</span>
+                <span>Status</span>
+                <span>Panggilan</span>
+            </div>
         </div>
-        <div class="flex-grow">
-            <h1 class="font-bold text-sm lg:text-base">Grup Warga Komplek Berkah</h1>
-            <p class="text-xs text-green-200">Ibu RT, Pak RW, Anda, +15 lainnya</p>
-        </div>
-        <div class="text-right">
-            <span class="text-[10px] block uppercase tracking-wider opacity-75">Level Kekesalan</span>
-            <div class="w-24 h-2 bg-black/20 rounded-full mt-1 overflow-hidden">
-                <div id="annoyance-bar" class="progress-bar h-full bg-red-500" style="width: 0%"></div>
+
+        <div class="flex-grow overflow-y-auto bg-white">
+            <!-- Grup Utama -->
+            <div onclick="showBriefing()" class="flex items-center p-4 hover:bg-gray-100 cursor-pointer border-b border-gray-100">
+                <div class="w-14 h-14 bg-pink-100 rounded-full flex-shrink-0 mr-4 overflow-hidden border">
+                    <img src="https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=150&q=80" alt="Bunga" class="w-full h-full object-cover">
+                </div>
+                <div class="flex-grow">
+                    <div class="flex justify-between">
+                        <h3 class="font-bold text-gray-800">Grup Warga Komplek Berkah</h3>
+                        <span class="text-xs text-green-500">08:00</span>
+                    </div>
+                    <p class="text-sm text-gray-500 truncate">Ibu RT: Besok semua wajib cat pagar!</p>
+                </div>
+            </div>
+            <!-- Grup Simulasi 1 -->
+            <div class="flex items-center p-4 opacity-60 grayscale border-b border-gray-100">
+                <div class="w-14 h-14 bg-blue-100 rounded-full flex-shrink-0 mr-4 flex items-center justify-center text-blue-500 font-bold">K</div>
+                <div class="flex-grow">
+                    <div class="flex justify-between">
+                        <h3 class="font-bold text-gray-800">Keluarga Besar (3)</h3>
+                        <span class="text-xs text-gray-400">Kemarin</span>
+                    </div>
+                    <p class="text-sm text-gray-500 truncate">Mama: Jangan lupa makan siang...</p>
+                </div>
+            </div>
+            <!-- Grup Simulasi 2 -->
+            <div class="flex items-center p-4 opacity-60 grayscale border-b border-gray-100">
+                <div class="w-14 h-14 bg-green-100 rounded-full flex-shrink-0 mr-4 flex items-center justify-center text-green-500 font-bold">A</div>
+                <div class="flex-grow">
+                    <div class="flex justify-between">
+                        <h3 class="font-bold text-gray-800">Alumni Pejuang UTBK</h3>
+                        <span class="text-xs text-gray-400">Kemarin</span>
+                    </div>
+                    <p class="text-sm text-gray-500 truncate">Budi: Udah dapet pengumuman belum?</p>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Area Chat -->
-    <div id="chat-container" class="flex-grow overflow-y-auto p-4 space-y-4 chat-bg bg-opacity-10 flex flex-col">
-        <div class="bg-yellow-100 text-yellow-800 text-[10px] p-1 rounded self-center px-3 mb-2 shadow-sm uppercase font-bold">Hari Ini</div>
-        
-        <!-- Pesan Pembuka -->
-        <div class="bubble-left p-3 max-w-[85%] shadow-sm self-start message-anim">
-            <p class="text-[10px] font-bold text-purple-600 mb-1">Ibu RT (Ketua)</p>
-            <p class="text-sm">Selamat pagi warga! Tolong perhatikan aturan baru di grup ini ya. Tolong jangan ada yang membantah kebijakan saya demi kebaikan kita semua! 🙏</p>
-            <span class="text-[9px] text-gray-500 float-right mt-1">08:00</span>
-        </div>
-
-        <div id="dynamic-messages" class="space-y-4 flex flex-col">
-            <!-- Pesan akan muncul di sini secara dinamis -->
-        </div>
-
-        <div id="typing-indicator" class="hidden bubble-left p-2 max-w-[120px] shadow-sm self-start italic text-xs text-gray-500">
-            Ibu RT sedang mengetik...
-        </div>
-    </div>
-
-    <!-- Panel Pilihan Jawaban -->
-    <div id="options-panel" class="bg-[#f0f0f0] p-4 border-t border-gray-300 shrink-0">
-        <p class="text-xs font-semibold text-gray-500 mb-3 uppercase tracking-widest text-center">Tanggapi dengan Logika Memperlemah</p>
-        <div id="options-grid" class="grid grid-cols-1 gap-2">
-            <!-- Opsi jawaban akan muncul di sini -->
+    <!-- MODAL DESKRIPSI MISI -->
+    <div id="modal-briefing" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-6 hidden">
+        <div class="bg-white rounded-2xl max-w-md w-full overflow-hidden shadow-2xl">
+            <div class="whatsapp-green p-4 text-white">
+                <h2 class="text-lg font-bold">Misi: Wakil Suara Warga</h2>
+            </div>
+            <div class="p-6">
+                <p class="text-gray-700 leading-relaxed mb-4">
+                    Warga Komplek Berkah sudah mulai resah dengan kelakuan <span class="font-bold text-pink-600">Ibu RT</span> yang sering memaksakan opininya di grup WhatsApp.
+                </p>
+                <div class="bg-gray-100 p-4 rounded-lg mb-4 text-sm border-l-4 border-yellow-500">
+                    <p class="font-semibold text-gray-800 mb-1 italic">Tugas Anda:</p>
+                    <ul class="list-disc ml-4 space-y-1 text-gray-600">
+                        <li>Gunakan logika <span class="font-bold">Memperlemah Argumen</span> untuk membantah opini Ibu RT.</li>
+                        <li>Jangan terlalu setuju (nanti Ibu RT malah jatuh cinta).</li>
+                    </ul>
+                </div>
+                <button onclick="startGame()" class="w-full whatsapp-light-green text-white font-bold py-3 rounded-xl hover:shadow-lg transition">Mulai Misi!</button>
+            </div>
         </div>
     </div>
 
-    <!-- Layar Menang/Kalah (Kena Kick) -->
-    <div id="overlay" class="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-6 hidden">
-        <div class="bg-white rounded-2xl p-8 max-w-sm w-full text-center shadow-2xl">
-            <div id="result-icon" class="text-6xl mb-4 text-red-500">🚫</div>
-            <h2 id="result-title" class="text-2xl font-bold mb-2">ANDA DIKICK!</h2>
-            <p id="result-desc" class="text-gray-600 mb-6"></p>
-            <button onclick="restartGame()" class="w-full bg-[#25d366] text-white font-bold py-3 rounded-xl hover:bg-[#128c7e] transition">
-                Masuk Grup Lagi
+    <!-- HALAMAN GAME (CHAT) -->
+    <div id="screen-game" class="h-full flex flex-col hidden">
+        <!-- Header Chat -->
+        <div class="whatsapp-green text-white p-3 flex items-center shadow-md shrink-0">
+            <button onclick="backToHome()" class="mr-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
             </button>
+            <div class="w-10 h-10 rounded-full mr-3 overflow-hidden border-2 border-white/50">
+                <img src="https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=150&q=80" alt="Bunga">
+            </div>
+            <div class="flex-grow">
+                <h1 class="font-bold text-sm">Grup Warga Komplek Berkah</h1>
+                <p class="text-[10px] text-green-200">Ibu RT, Pak RW, Anda...</p>
+            </div>
+            <div class="flex flex-col items-end space-y-1">
+                <div class="flex items-center space-x-1">
+                    <span class="text-[9px] uppercase font-bold opacity-80">🔥 Kesal:</span>
+                    <div class="w-16 h-2 bg-black/20 rounded-full overflow-hidden">
+                        <div id="bar-annoyance" class="progress-bar h-full bg-red-500" style="width: 0%"></div>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-1">
+                    <span class="text-[9px] uppercase font-bold opacity-80">💖 Cinta:</span>
+                    <div class="w-16 h-2 bg-black/20 rounded-full overflow-hidden">
+                        <div id="bar-love" class="progress-bar h-full bg-pink-400" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chat Area -->
+        <div id="chat-container" class="flex-grow overflow-y-auto p-4 space-y-4 chat-bg flex flex-col">
+            <div class="bg-blue-100/80 text-blue-800 text-[10px] p-1 rounded-md self-center px-4 mb-2 shadow-sm font-medium">Misi Dimulai: Jangan Biarkan Ibu RT Senang!</div>
+            <div id="dynamic-messages" class="space-y-4 flex flex-col"></div>
+            <div id="typing-indicator" class="hidden bubble-left p-2 max-w-[120px] shadow-sm self-start italic text-xs text-gray-500">Ibu RT sedang mengetik...</div>
+        </div>
+
+        <!-- Input/Options -->
+        <div id="options-panel" class="bg-[#f0f0f0] p-4 border-t border-gray-300 shrink-0">
+            <p class="text-[10px] font-bold text-gray-400 mb-3 uppercase tracking-widest text-center">Pilih Balasan (Target: Perlemah Argumen)</p>
+            <div id="options-grid" class="grid grid-cols-1 gap-2"></div>
+        </div>
+    </div>
+
+    <!-- LAYAR HASIL -->
+    <div id="overlay" class="fixed inset-0 bg-black/90 z-[100] flex items-center justify-center p-6 hidden">
+        <div class="bg-white rounded-3xl p-8 max-w-sm w-full text-center shadow-2xl overflow-hidden relative">
+            <div id="result-confetti" class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-red-500 via-green-500 to-blue-500"></div>
+            <div id="result-icon" class="text-7xl mb-4">🚫</div>
+            <h2 id="result-title" class="text-2xl font-bold mb-2"></h2>
+            <p id="result-desc" class="text-gray-600 mb-6 text-sm"></p>
+            <button onclick="backToHome()" class="w-full whatsapp-green text-white font-bold py-3 rounded-xl hover:opacity-90 transition shadow-lg">Kembali Ke List Chat</button>
         </div>
     </div>
 
     <script>
         const questions = [
             {
-                statement: "Ibu RT: 'Mulai besok warga dilarang beli makanan ojek online lewat jam 8 malam karena motor ojol suaranya berisik bikin bayi warga susah tidur.'",
+                statement: "Ibu RT: 'Mulai besok warga dilarang beli makanan ojol lewat jam 8 malam karena motor ojol suaranya berisik bikin bayi warga susah tidur.'",
                 options: [
-                    { text: "Bener Bu, mending masak sendiri lebih sehat.", type: "strengthen", feedback: "Ibu RT senang! Anda jadi warga penurut (Gagal)." },
-                    { text: "Suara motor ojol emang kadang ganggu sih.", type: "strengthen", feedback: "Dukungan Anda membuat Ibu RT tenang." },
-                    { text: "Banyak warga yang justru bekerja shift malam dan hanya bisa makan lewat ojol karena tidak sempat masak.", type: "weaken", feedback: "SKAKMAT! Anda menunjukkan dampak negatif kebijakan bagi pekerja." },
-                    { text: "Penelitian menunjukkan suara knalpot ojol standar masih di bawah ambang batas kebisingan lingkungan dibanding suara kendaraan warga sendiri.", type: "weaken", feedback: "TELAK! Data teknis merusak argumen Ibu RT." }
+                    { text: "Bener Bu, mending masak sendiri lebih sehat.", type: "strengthen", feedback: "Ibu RT sangat tersentuh dengan dukungan Anda! ❤️" },
+                    { text: "Banyak warga yang bekerja shift malam dan hanya bisa makan lewat ojol karena tidak sempat masak.", type: "weaken", feedback: "Ibu RT mulai panas! Logika Anda tajam. 🔥" },
+                    { text: "Suara knalpot ojol standar masih di bawah ambang batas kebisingan dibanding suara kendaraan warga sendiri.", type: "weaken", feedback: "TEPAT! Fakta teknis ini merusak argumennya. 🔥" },
+                    { text: "Suara motor ojol emang kadang ganggu sih.", type: "strengthen", feedback: "Ibu RT tersenyum puas membaca ini. ❤️" }
                 ]
             },
             {
                 statement: "Ibu RT: 'Iuran sampah harus naik 200% supaya warga lebih disiplin dalam membuang sampah pada tempatnya.'",
                 options: [
-                    { text: "Naik iuran tidak menjamin kedisiplinan jika fasilitas tempat sampah di tiap gang tidak ditambah jumlahnya.", type: "weaken", feedback: "BAGUS! Anda menyerang korelasi iuran vs disiplin." },
-                    { text: "Setuju Bu, biar petugas sampahnya semangat.", type: "strengthen", feedback: "Ibu RT merasa didukung secara finansial." },
-                    { text: "Warga pasti keberatan kalo naik segitu banyak.", type: "neutral", feedback: "Sekadar keluhan, bukan bantahan logis." },
-                    { text: "Iuran mahal buat bayar gaji admin grup juga ya Bu?", type: "neutral", feedback: "Ibu RT hanya menganggap Anda bercanda." }
+                    { text: "Kenaikan iuran tidak menjamin kedisiplinan jika fasilitas tempat sampah di tiap gang tidak ditambah jumlahnya.", type: "weaken", feedback: "Argumen Anda sangat valid dan menyebalkan! 🔥" },
+                    { text: "Setuju Bu, biar petugas sampahnya semangat.", type: "strengthen", feedback: "Ibu RT merasa Anda adalah calon menantu idaman. ❤️" },
+                    { text: "Kalo iurannya mahal, warga pasti lebih mikir dua kali buat nyampah sembarangan.", type: "strengthen", feedback: "Dukungan yang sangat disukai Ibu RT. ❤️" },
+                    { text: "Sistem denda bagi yang membuang sampah sembarangan jauh lebih efektif meningkatkan disiplin daripada menaikkan iuran secara merata.", type: "weaken", feedback: "BOOM! Solusi Anda mematahkan idenya. 🔥" }
                 ]
             },
             {
                 statement: "Ibu RT: 'Kita harus mengecat semua tembok rumah warga dengan warna hijau agar udara di komplek terasa lebih sejuk dan segar.'",
                 options: [
-                    { text: "Hijau emang warna yang menenangkan jiwa.", type: "strengthen", feedback: "Ibu RT merasa Anda mengerti estetikanya." },
-                    { text: "Suhu udara dipengaruhi oleh vegetasi (pohon) dan sirkulasi udara, bukan oleh warna cat tembok rumah warga.", type: "weaken", feedback: "LOGIS! Sains mematahkan asumsi visual Ibu RT." },
-                    { text: "Warna hijau cat tembok bisa memantulkan cahaya lebih banyak daripada warna putih.", type: "neutral", feedback: "Argumen teknis tapi kurang kuat melemahkan." },
-                    { text: "Nanti komplek kita jadi kayak hutan ya Bu.", type: "strengthen", feedback: "Ibu RT menganggap ini dukungan." }
+                    { text: "Hijau emang warna yang menenangkan jiwa.", type: "strengthen", feedback: "Ibu RT merasa Anda mengerti estetikanya. ❤️" },
+                    { text: "Suhu udara dipengaruhi oleh vegetasi dan sirkulasi udara, bukan oleh warna cat tembok rumah warga.", type: "weaken", feedback: "Sains Anda membuat Ibu RT merasa bodoh! 🔥" },
+                    { text: "Warna hijau cat tembok bisa memantulkan cahaya lebih banyak daripada warna putih.", type: "neutral", feedback: "Ibu RT bingung, tapi dia tidak peduli." },
+                    { text: "Data menunjukkan bahwa warna cat tertentu tidak memberikan efek signifikan pada penurunan suhu dalam ruangan tanpa ventilasi yang baik.", type: "weaken", feedback: "KRITIS! Ibu RT mulai emosi. 🔥" }
                 ]
             },
             {
                 statement: "Ibu RT: 'Anak-anak dilarang main sepeda di jalan komplek karena pasti akan menyebabkan kecelakaan dengan mobil warga.'",
                 options: [
-                    { text: "Sejak ada polisi tidur bulan lalu, kecepatan mobil di komplek maksimal hanya 10km/jam, sehingga risiko kecelakaan sangat rendah.", type: "weaken", feedback: "MANTAP! Fakta lapangan melemahkan ketakutan Ibu RT." },
-                    { text: "Iya Bu, bahaya banget anak kecil main di jalan.", type: "strengthen", feedback: "Sikap protektif Anda disukai Ibu RT." },
-                    { text: "Mending main game aja di rumah ya Bu.", type: "strengthen", feedback: "Anda mendukung pembatasan aktivitas fisik." },
-                    { text: "Data 5 tahun terakhir menunjukkan tidak pernah ada laporan kecelakaan sepeda vs mobil di komplek kita.", type: "weaken", feedback: "DATA BICARA! Menunjukkan ketakutan Ibu RT tidak berdasar." }
+                    { text: "Sejak ada polisi tidur, kecepatan mobil di komplek maksimal hanya 10km/jam, sehingga risiko kecelakaan sangat rendah.", type: "weaken", feedback: "Ibu RT benar-benar tidak suka dibantah dengan fakta! 🔥" },
+                    { text: "Iya Bu, bahaya banget anak kecil main di jalan.", type: "strengthen", feedback: "Ibu RT menganggap Anda warga paling bijak. ❤️" },
+                    { text: "Mending main game aja di rumah ya Bu.", type: "strengthen", feedback: "Anda sangat suportif terhadap aturan kaku. ❤️" },
+                    { text: "Data 5 tahun terakhir menunjukkan tidak pernah ada laporan kecelakaan sepeda vs mobil di komplek kita.", type: "weaken", feedback: "SKAKMAT! Anda meruntuhkan ketakutan tanpa dasarnya. 🔥" }
                 ]
             }
         ];
 
         let currentLevel = 0;
         let annoyance = 0;
-        const chatContainer = document.getElementById('chat-container');
-        const dynamicMessages = document.getElementById('dynamic-messages');
-        const optionsGrid = document.getElementById('options-grid');
-        const annoyanceBar = document.getElementById('annoyance-bar');
-        const typingIndicator = document.getElementById('typing-indicator');
+        let love = 0;
+
+        // Navigation
+        function showBriefing() {
+            document.getElementById('modal-briefing').classList.remove('hidden');
+        }
+
+        function startGame() {
+            document.getElementById('modal-briefing').classList.add('hidden');
+            document.getElementById('screen-home').classList.add('hidden');
+            document.getElementById('screen-game').classList.remove('hidden');
+            initLevel();
+        }
+
+        function backToHome() {
+            currentLevel = 0;
+            annoyance = 0;
+            love = 0;
+            document.getElementById('bar-annoyance').style.width = '0%';
+            document.getElementById('bar-love').style.width = '0%';
+            document.getElementById('dynamic-messages').innerHTML = '';
+            document.getElementById('screen-home').classList.remove('hidden');
+            document.getElementById('screen-game').classList.add('hidden');
+            document.getElementById('overlay').classList.add('hidden');
+        }
 
         function initLevel() {
-            if (currentLevel >= questions.length) {
+            if (annoyance >= 100 || love >= 100 || currentLevel >= questions.length) {
                 checkFinalResult();
                 return;
             }
 
-            typingIndicator.classList.remove('hidden');
+            const indicator = document.getElementById('typing-indicator');
+            indicator.classList.remove('hidden');
+            
             setTimeout(() => {
-                typingIndicator.classList.add('hidden');
+                indicator.classList.add('hidden');
                 addMessage(questions[currentLevel].statement, 'left', 'Ibu RT');
                 showOptions();
             }, 1000);
         }
 
         function addMessage(text, side, sender) {
+            const container = document.getElementById('dynamic-messages');
             const div = document.createElement('div');
             div.className = `bubble-${side} p-3 max-w-[85%] shadow-sm self-${side === 'left' ? 'start' : 'end'} message-anim`;
             
@@ -154,51 +249,49 @@
             
             div.innerHTML = `
                 <p class="text-[10px] font-bold ${color} mb-1">${senderName}</p>
-                <p class="text-sm">${text}</p>
+                <p class="text-sm text-gray-800">${text}</p>
                 <span class="text-[9px] text-gray-500 float-right mt-1">${new Date().getHours()}:${String(new Date().getMinutes()).padStart(2, '0')}</span>
             `;
-            dynamicMessages.appendChild(div);
-            chatContainer.scrollTo({ top: chatContainer.scrollHeight, behavior: 'smooth' });
+            container.appendChild(div);
+            const chatCont = document.getElementById('chat-container');
+            chatCont.scrollTo({ top: chatCont.scrollHeight, behavior: 'smooth' });
         }
 
         function showOptions() {
-            optionsGrid.innerHTML = '';
-            const currentOptions = questions[currentLevel].options;
-            
-            currentOptions.forEach(opt => {
+            const grid = document.getElementById('options-grid');
+            grid.innerHTML = '';
+            questions[currentLevel].options.forEach((opt, idx) => {
                 const btn = document.createElement('button');
-                btn.className = "bg-white p-3 rounded-lg text-sm text-left border border-gray-200 hover:bg-green-50 active:bg-green-100 transition shadow-sm";
+                btn.className = "bg-white p-3 rounded-lg text-xs text-left border border-gray-200 hover:bg-green-50 active:bg-green-100 transition shadow-sm text-gray-700 font-medium";
                 btn.innerText = opt.text;
                 btn.onclick = () => handleChoice(opt);
-                optionsGrid.appendChild(btn);
+                grid.appendChild(btn);
             });
         }
 
         function handleChoice(option) {
-            optionsGrid.innerHTML = '';
+            document.getElementById('options-grid').innerHTML = '';
             addMessage(option.text, 'right');
 
             setTimeout(() => {
-                let systemMsg = "";
                 if (option.type === 'weaken') {
                     annoyance += 25;
-                    systemMsg = "🔥 Ibu RT kesal: " + option.feedback;
+                    love = Math.max(0, love - 10);
                 } else if (option.type === 'strengthen') {
-                    annoyance = Math.max(0, annoyance - 15);
-                    systemMsg = "😊 Ibu RT senang: " + option.feedback;
-                } else {
-                    systemMsg = "🤔 " + option.feedback;
+                    love += 25;
+                    annoyance = Math.max(0, annoyance - 10);
                 }
 
-                annoyanceBar.style.width = Math.min(100, annoyance) + "%";
+                document.getElementById('bar-annoyance').style.width = Math.min(100, annoyance) + "%";
+                document.getElementById('bar-love').style.width = Math.min(100, love) + "%";
                 
                 const sysDiv = document.createElement('div');
-                sysDiv.className = "bg-white/50 text-gray-600 text-[10px] p-2 rounded self-center px-4 shadow-sm italic text-center max-w-[80%] border border-gray-200";
-                sysDiv.innerText = systemMsg;
-                dynamicMessages.appendChild(sysDiv);
+                sysDiv.className = "bg-white/70 text-gray-600 text-[10px] p-2 rounded-full self-center px-4 shadow-sm italic text-center max-w-[80%] border border-gray-200 mt-2";
+                sysDiv.innerText = option.feedback;
+                document.getElementById('dynamic-messages').appendChild(sysDiv);
                 
                 currentLevel++;
-                setTimeout(initLevel, 1500);
+                setTimeout(initLevel, 1200);
             }, 800);
         }
 
@@ -212,25 +305,18 @@
 
             if (annoyance >= 75) {
                 icon.innerText = "🚫";
-                title.innerText = "MISI BERHASIL!";
-                desc.innerText = `Skor Kekesalan: ${annoyance}%. Ibu RT sangat marah karena Anda terus mematahkan argumennya dengan fakta. Anda resmi DIKICK! Selamat, kemampuan 'Memperlemah Argumen' Anda setara pejuang UTBK papan atas!`;
+                title.innerText = "ANDA DIKICK!";
+                desc.innerText = `MISI BERHASIL! Level Kekesalan: ${annoyance}%. Ibu RT sangat marah karena logika Anda terlalu tajam. Warga komplek bersorak karena Anda berhasil membungkam Ibu RT. Selamat, Pahlawan Penalaran Umum!`;
+            } else if (love >= 75) {
+                icon.innerText = "🥰";
+                title.innerText = "JADI TANGAN KANAN";
+                desc.innerText = `GAME OVER! Cinta Bu RT: ${love}%. Anda terlalu banyak memperkuat argumen Ibu RT. Sekarang Anda dijadikan Sekretaris RT abadi dan harus mendengarkan curhatnya setiap hari. Ayo belajar 'Memperlemah' lagi!`;
             } else {
-                icon.innerText = "😇";
-                title.innerText = "MISI GAGAL";
-                desc.innerText = `Skor Kekesalan: ${annoyance}%. Anda terlalu sopan dan banyak mendukung argumen Ibu RT. Anda malah dijadikan sekretaris RT. Ayo coba lagi dan cari argumen yang lebih 'Melemahkan'!`;
+                icon.innerText = "😐";
+                title.innerText = "WARGA BIASA";
+                desc.innerText = `Skor tidak cukup untuk menang atau kalah. Ibu RT menganggap Anda angin lalu. Warga kecewa karena Anda tidak berani bersuara kritis. Coba lagi!`;
             }
         }
-
-        function restartGame() {
-            currentLevel = 0;
-            annoyance = 0;
-            annoyanceBar.style.width = "0%";
-            dynamicMessages.innerHTML = '';
-            document.getElementById('overlay').classList.add('hidden');
-            initLevel();
-        }
-
-        window.onload = initLevel;
     </script>
 </body>
 </html>
