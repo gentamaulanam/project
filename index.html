@@ -3,16 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Misi Kena Kick: Edisi Ibu RT</title>
+    <title>Misi Kena Kick & Kejar THR</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
         
-        /* Fix untuk mobile height */
         body { 
             font-family: 'Inter', sans-serif; 
             background-color: #f0f2f5;
-            height: 100dvh; /* Dynamic viewport height untuk mobile */
+            height: 100dvh; 
         }
 
         .whatsapp-green { background-color: #075e54; }
@@ -26,7 +25,6 @@
         .message-anim { animation: slideIn 0.3s ease-out; }
         @keyframes slideIn { from { transform: translateY(10px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
-        /* Custom scrollbar untuk panel jawaban jika terlalu panjang */
         #options-panel::-webkit-scrollbar { width: 4px; }
         #options-panel::-webkit-scrollbar-thumb { background-color: #ccc; border-radius: 4px; }
     </style>
@@ -51,8 +49,8 @@
         </div>
 
         <div class="flex-grow overflow-y-auto bg-white">
-            <!-- Grup Utama -->
-            <div onclick="showBriefing()" class="flex items-center p-4 hover:bg-gray-100 cursor-pointer border-b border-gray-100 transition active:bg-gray-200">
+            <!-- Grup Utama (RT) -->
+            <div onclick="showBriefing('rt')" class="flex items-center p-4 hover:bg-gray-100 cursor-pointer border-b border-gray-100 transition active:bg-gray-200">
                 <div class="w-14 h-14 bg-pink-100 rounded-full flex-shrink-0 mr-4 overflow-hidden border">
                     <img src="https://images.unsplash.com/photo-1560717845-968823efbee1?auto=format&fit=crop&w=150&q=80" alt="Bunga" class="w-full h-full object-cover">
                 </div>
@@ -64,18 +62,22 @@
                     <p class="text-sm text-gray-500 truncate">Ibu RT: PENGUMUMAN PENTING!!! Baca...</p>
                 </div>
             </div>
-            <!-- Grup Simulasi 1 -->
-            <div class="flex items-center p-4 opacity-60 grayscale border-b border-gray-100">
-                <div class="w-14 h-14 bg-blue-100 rounded-full flex-shrink-0 mr-4 flex items-center justify-center text-blue-500 font-bold">K</div>
+
+            <!-- Grup Baru (Keluarga) -->
+            <div onclick="showBriefing('keluarga')" class="flex items-center p-4 hover:bg-gray-100 cursor-pointer border-b border-gray-100 transition active:bg-gray-200">
+                <div class="w-14 h-14 bg-blue-100 rounded-full flex-shrink-0 mr-4 flex items-center justify-center border overflow-hidden">
+                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Grandpa&backgroundColor=b6e3f4" alt="Keluarga" class="w-full h-full">
+                </div>
                 <div class="flex-grow min-w-0">
                     <div class="flex justify-between">
-                        <h3 class="font-bold text-gray-800">Keluarga Besar (3)</h3>
-                        <span class="text-xs text-gray-400">Kemarin</span>
+                        <h3 class="font-bold text-gray-800">Keluarga Besar (Haji Somad)</h3>
+                        <span class="text-xs text-green-500 whitespace-nowrap ml-2">07:30</span>
                     </div>
-                    <p class="text-sm text-gray-500 truncate">Mama: Jangan lupa makan siang...</p>
+                    <p class="text-sm text-gray-500 truncate">Om Agus: Share info kesehatan...</p>
                 </div>
             </div>
-            <!-- Grup Simulasi 2 -->
+
+            <!-- Grup Simulasi Lain -->
             <div class="flex items-center p-4 opacity-60 grayscale border-b border-gray-100">
                 <div class="w-14 h-14 bg-green-100 rounded-full flex-shrink-0 mr-4 flex items-center justify-center text-green-500 font-bold">A</div>
                 <div class="flex-grow min-w-0">
@@ -93,21 +95,13 @@
     <div id="modal-briefing" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-6 hidden">
         <div class="bg-white rounded-2xl max-w-md w-full overflow-hidden shadow-2xl flex flex-col max-h-[90vh]">
             <div class="whatsapp-green p-4 text-white shrink-0">
-                <h2 class="text-lg font-bold">Misi: Wakil Suara Warga</h2>
+                <h2 id="mission-title" class="text-lg font-bold">Misi</h2>
             </div>
             <div class="p-6 overflow-y-auto">
-                <p class="text-gray-700 leading-relaxed mb-4 text-sm md:text-base">
-                    Warga Komplek Berkah sudah mulai resah dengan kelakuan <span class="font-bold text-pink-600">Ibu RT</span> yang sering memaksakan opininya di grup WhatsApp.
-                </p>
-                <div class="bg-gray-100 p-4 rounded-lg mb-4 text-sm border-l-4 border-yellow-500">
-                    <p class="font-semibold text-gray-800 mb-1 italic">Tugas Anda:</p>
-                    <ul class="list-disc ml-4 space-y-1 text-gray-600">
-                        <li>Hadapi <span class="font-bold text-red-600">5 Opini Bu RT</span> hari ini.</li>
-                        <li>Gunakan logika <span class="font-bold">Memperlemah Argumen</span> untuk membantah opini Ibu RT.</li>
-                        <li>Buat Bu RT kesal sampai level maksimal!</li>
-                    </ul>
+                <div id="mission-content">
+                    <!-- Konten misi akan diisi via JS -->
                 </div>
-                <button onclick="startGame()" class="w-full whatsapp-light-green text-white font-bold py-3 rounded-xl hover:shadow-lg transition">Mulai Misi!</button>
+                <button onclick="startGame()" class="w-full whatsapp-light-green text-white font-bold py-3 rounded-xl hover:shadow-lg transition mt-4">Mulai Chat!</button>
             </div>
         </div>
     </div>
@@ -120,38 +114,36 @@
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
             </button>
             <div class="w-9 h-9 md:w-10 md:h-10 rounded-full mr-2 md:mr-3 overflow-hidden border-2 border-white/50 shrink-0">
-                <img src="https://images.unsplash.com/photo-1560717845-968823efbee1?auto=format&fit=crop&w=150&q=80" alt="Bunga" class="w-full h-full object-cover">
+                <img id="game-avatar" src="" alt="Avatar" class="w-full h-full object-cover">
             </div>
             <div class="flex-grow mr-2 min-w-0">
-                <h1 class="font-bold text-sm truncate">Grup Warga Komplek Berkah</h1>
-                <p class="text-[10px] text-green-200 truncate">Ibu RT, Pak RW, Anda...</p>
+                <h1 id="game-title" class="font-bold text-sm truncate">Nama Grup</h1>
+                <p id="game-members" class="text-[10px] text-green-200 truncate">Anggota...</p>
             </div>
-            <!-- BAR KEKESALAN DIPERBESAR -->
+            <!-- BAR SCORE (Dinamis: Kekesalan / THR) -->
             <div class="flex flex-col items-end w-[35%] max-w-[150px] shrink-0">
                 <div class="flex justify-between w-full mb-1">
-                    <span class="text-[9px] md:text-[10px] uppercase font-bold text-white tracking-widest truncate mr-1">🔥 KEKESALAN</span>
-                    <span id="annoyance-text" class="text-[10px] font-bold text-white">0%</span>
+                    <span id="score-label" class="text-[9px] md:text-[10px] uppercase font-bold text-white tracking-widest truncate mr-1">SCORE</span>
+                    <span id="score-text" class="text-[10px] font-bold text-white">0%</span>
                 </div>
                 <div class="w-full h-3 md:h-4 bg-black/30 rounded-full overflow-hidden border border-white/20">
-                    <div id="bar-annoyance" class="progress-bar h-full bg-gradient-to-r from-orange-400 to-red-600 shadow-[0_0_10px_rgba(255,0,0,0.5)]" style="width: 0%"></div>
+                    <div id="bar-score" class="progress-bar h-full bg-gradient-to-r from-orange-400 to-red-600 shadow-[0_0_10px_rgba(255,0,0,0.5)]" style="width: 0%"></div>
                 </div>
             </div>
         </div>
 
         <!-- Chat Area -->
-        <!-- Added min-h-0 to allow shrinking -->
         <div id="chat-container" class="flex-grow min-h-0 overflow-y-auto p-3 md:p-4 space-y-4 chat-bg flex flex-col scroll-smooth">
-            <div class="bg-blue-100/90 text-blue-800 text-xs p-2 rounded-lg self-center px-4 mb-2 shadow-sm font-semibold text-center border border-blue-200 shrink-0">
-                Misi Dimulai: Patahkan 5 Argumen Ibu RT!
+            <div id="game-intro" class="bg-blue-100/90 text-blue-800 text-xs p-2 rounded-lg self-center px-4 mb-2 shadow-sm font-semibold text-center border border-blue-200 shrink-0">
+                Misi Dimulai
             </div>
             <div id="dynamic-messages" class="space-y-4 flex flex-col pb-2"></div>
-            <div id="typing-indicator" class="hidden bubble-left p-2 max-w-[120px] shadow-sm self-start italic text-xs text-gray-500 mb-2">Ibu RT sedang mengetik...</div>
+            <div id="typing-indicator" class="hidden bubble-left p-2 max-w-[120px] shadow-sm self-start italic text-xs text-gray-500 mb-2">Seseorang sedang mengetik...</div>
         </div>
 
         <!-- Input/Options -->
-        <!-- Added max-height and overflow-y-auto to prevent cut-off on small screens -->
         <div id="options-panel" class="bg-[#f0f0f0] p-3 md:p-4 border-t border-gray-300 shrink-0 max-h-[45vh] overflow-y-auto pb-safe">
-            <p class="text-[10px] font-bold text-gray-500 mb-2 md:mb-3 uppercase tracking-widest text-center sticky top-0 bg-[#f0f0f0] py-1 z-10">Pilih Balasan (Target: Perlemah Argumen)</p>
+            <p id="options-hint" class="text-[10px] font-bold text-gray-500 mb-2 md:mb-3 uppercase tracking-widest text-center sticky top-0 bg-[#f0f0f0] py-1 z-10">Pilih Balasan</p>
             <div id="options-grid" class="grid grid-cols-1 gap-2 md:gap-3 pb-2"></div>
         </div>
     </div>
@@ -168,8 +160,9 @@
     </div>
 
     <script>
-        // BANK SOAL LENGKAP (20 Item)
-        const bankSoal = [
+        // --- DATA SOAL RT (20 SOAL) ---
+        // Misi: MEMPERLEMAH (Weaken)
+        const bankSoalRT = [
             {
                 statement: "Mulai besok WiFi di poskamling saya cabut. Gara-gara ada WiFi, pemuda yang pada ronda malah sibuk main game, daripada keliling kampung.",
                 options: [
@@ -352,12 +345,221 @@
             }
         ];
 
+        // --- DATA SOAL KELUARGA (20 SOAL) ---
+        // Misi: JANGAN Memperlemah (Strengthen/Neutral)
+        // Correct Answer (THR): type 'strengthen'
+        // Wrong Answer (No THR): type 'weaken'
+        const bankSoalKeluarga = [
+            {
+                sender: "Tante",
+                statement: "Kamu jangan beli saham atau kripto, mending beli emas batangan saja. Emas itu harganya naik terus tiap tahun dan fisiknya bisa dipegang, jadi lebih aman.",
+                options: [
+                    { text: "Data sejarah menunjukkan emas adalah aset safe haven yang paling stabil saat terjadi inflasi global.", type: "strengthen", feedback: "Tante: 'Tuh kan, Tante emang jago investasi!' THR aman. 💸" },
+                    { text: "Harga emas dunia sempat mengalami stagnasi selama beberapa tahun terakhir dibandingkan instrumen lain.", type: "weaken", feedback: "Tante cemberut: 'Kamu sok tau ekonomi'. THR berkurang. 📉" },
+                    { text: "Biaya penyimpanan emas di brankas bank cukup mahal dan mengurangi nilai keuntungan bersih.", type: "weaken", feedback: "Tante: 'Pelit amat sama biaya admin'. THR berkurang. 📉" },
+                    { text: "Likuiditas emas fisik lebih rendah karena butuh waktu untuk pergi ke toko emas jika butuh uang mendadak.", type: "weaken", feedback: "Tante: 'Emas itu tabungan masa depan bukan buat jajan!'. THR berkurang. 📉" }
+                ]
+            },
+            {
+                sender: "Om",
+                statement: "Kuliah itu ambil Teknik Sipil atau Akuntansi saja. Zaman sekarang perusahaan cuma cari orang yang punya keahlian teknis jelas, daripada jurusan seni yang kerjanya nggak pasti.",
+                options: [
+                    { text: "Lowongan kerja untuk tenaga ahli infrastruktur dan audit keuangan selalu mendominasi portal pencarian kerja setiap tahunnya.", type: "strengthen", feedback: "Om: 'Nah, ini baru ponakan pintar!'. THR cair. 💸" },
+                    { text: "Banyak lulusan seni yang kini sukses menjadi pengusaha kreatif dengan penghasilan miliaran rupiah.", type: "weaken", feedback: "Om: 'Itu kan hoki-hokian doang'. THR melayang. 📉" },
+                    { text: "Kecerdasan emosional dan kreativitas kini lebih dihargai perusahaan besar daripada kemampuan menghitung manual.", type: "weaken", feedback: "Om tersinggung: 'Maksudmu Om gak kreatif?'. THR melayang. 📉" },
+                    { text: "Automasi AI diprediksi akan menggantikan peran akuntan dasar dalam 10 tahun ke depan.", type: "weaken", feedback: "Om: 'Jangan percaya robot!'. THR melayang. 📉" }
+                ]
+            },
+            {
+                sender: "Tante",
+                statement: "Jangan sering minum air es pas lagi makan, nanti lemaknya membeku di perut dan bikin kamu buncit!",
+                options: [
+                    { text: "Beberapa orang merasa perutnya lebih begah dan terlihat membesar sesaat setelah mengonsumsi minuman dingin dalam jumlah banyak.", type: "strengthen", feedback: "Tante: 'Kan! Dibilangin ngeyel'. THR aman. 💸" },
+                    { text: "Suhu air yang masuk ke tubuh akan segera disesuaikan dengan suhu internal tubuh oleh sistem metabolisme.", type: "weaken", feedback: "Tante: 'Kamu kebanyakan teori buku'. THR berkurang. 📉" },
+                    { text: "Secara biologis, lemak hanya bisa dicerna melalui proses kimiawi enzim, bukan dibekukan oleh suhu air.", type: "weaken", feedback: "Tante: 'Tante lebih tau soal diet'. THR berkurang. 📉" },
+                    { text: "Minum air dingin justru sedikit membakar kalori karena tubuh bekerja ekstra untuk menghangatkan air tersebut.", type: "weaken", feedback: "Tante: 'Alasan aja biar minum es terus'. THR berkurang. 📉" }
+                ]
+            },
+            {
+                sender: "Om",
+                statement: "Anak muda itu harus bangun jam 5 subuh. Kalau bangun siang, rejekinya dipatok ayam, makanya kamu sampai sekarang belum kaya-kaya.",
+                options: [
+                    { text: "Survei menunjukkan orang yang bangun lebih pagi memiliki waktu lebih banyak untuk merencanakan strategi kerja harian.", type: "strengthen", feedback: "Om: 'Mantap, tiru semangat Om!'. THR cair. 💸" },
+                    { text: "Banyak miliarder teknologi yang justru bekerja produktif di malam hari dan baru tidur setelah subuh.", type: "weaken", feedback: "Om: 'Itu kan di Amerika, beda jam!'. THR seret. 📉" },
+                    { text: "Kesuksesan finansial lebih dipengaruhi oleh manajemen aset dan jejaring daripada jam bangun tidur.", type: "weaken", feedback: "Om: 'Jangan ngajarin orang tua'. THR seret. 📉" },
+                    { text: "Jam biologis setiap orang berbeda-beda, ada yang lebih efektif bekerja di siang hari.", type: "weaken", feedback: "Om: 'Alasan pemalas!'. THR seret. 📉" }
+                ]
+            },
+            {
+                sender: "Tante",
+                statement: "Ngapain kuliah jauh-jauh ke luar negeri? Di sini saja, nanti kalau di sana kamu lupa sama budaya sendiri dan nggak mau pulang.",
+                options: [
+                    { text: "Beberapa survei menunjukkan adanya fenomena culture shock yang membuat perantau merasa nyaman dengan gaya hidup negara baru dan enggan kembali.", type: "strengthen", feedback: "Tante: 'Tuh kan bener, bahaya pergaulan bebas'. THR cair. 💸" },
+                    { text: "Mahasiswa luar negeri justru sering mengadakan festival budaya Indonesia untuk memperkenalkan tradisi kita.", type: "weaken", feedback: "Tante: 'Halah, paling cuma setahun sekali'. THR -20%. 📉" },
+                    { text: "Lulusan luar negeri memiliki daya saing yang lebih tinggi di pasar kerja global.", type: "weaken", feedback: "Tante: 'Kerja di sini juga bisa kaya kok'. THR -20%. 📉" },
+                    { text: "Beasiswa ke luar negeri memberikan tunjangan yang sangat mencukupi.", type: "weaken", feedback: "Tante: 'Uang bukan segalanya nak'. THR -20%. 📉" }
+                ]
+            },
+            {
+                sender: "Om",
+                statement: "Jangan taruh HP dekat tanaman hias Om, nanti sinyal radiasinya bikin daunnya layu. Ini tanaman mahal!",
+                options: [
+                    { text: "Komponen elektronik pada HP mengeluarkan panas yang dapat mempengaruhi suhu mikro di sekitar daun tanaman yang sensitif.", type: "strengthen", feedback: "Om: 'Nah, kamu ngerti kan!'. THR aman. 💸" },
+                    { text: "Gelombang radio pada HP adalah radiasi non-ionisasi yang energinya terlalu lemah untuk merusak sel tumbuhan.", type: "weaken", feedback: "Om: 'Jangan sok profesor deh'. THR bye-bye. 📉" },
+                    { text: "Tanaman membutuhkan sinar matahari dan air untuk fotosintesis, bukan dipengaruhi oleh frekuensi seluler.", type: "weaken", feedback: "Om: 'Tanaman Om beda, sensitif!'. THR bye-bye. 📉" },
+                    { text: "Tidak ada bukti ilmiah yang mendukung bahwa sinyal 4G dapat menghambat pertumbuhan klorofil.", type: "weaken", feedback: "Om: 'Ilmuwan belum neliti tanaman Om aja'. THR bye-bye. 📉" }
+                ]
+            },
+            {
+                sender: "Tante",
+                statement: "Kamu kalau makan nggak pakai nasi itu namanya belum makan. Karbohidrat dari roti itu nggak bikin kenyang, cuma lewat doang di tenggorokan.",
+                options: [
+                    { text: "Nasi memiliki kepadatan tekstur yang memicu peregangan dinding lambung secara lebih intens, sinyal utama bagi otak untuk merasa kenyang.", type: "strengthen", feedback: "Tante: 'Pinter kamu, ayo tambah nasinya'. THR +++. 💸" },
+                    { text: "Roti gandum memiliki kandungan serat yang lebih tinggi sehingga memberikan rasa kenyang yang lebih lama daripada nasi.", type: "weaken", feedback: "Tante: 'Serat apaan, kayak makan kertas'. THR turun. 📉" },
+                    { text: "Rasa kenyang adalah sinyal hormonal dari otak yang tidak bergantung pada jenis sumber karbohidratnya.", type: "weaken", feedback: "Tante: 'Teori melulu, makan tuh nasi'. THR turun. 📉" },
+                    { text: "Masyarakat di negara barat tetap bisa beraktivitas berat meskipun hanya mengonsumsi kentang.", type: "weaken", feedback: "Tante: 'Kita orang Indo bukan londo'. THR turun. 📉" }
+                ]
+            },
+            {
+                sender: "Om",
+                statement: "Cari istri itu yang dekat-dekat saja, kalau bisa tetangga satu komplek atau anak teman Om. Biar bibit, bebet, bobotnya jelas dan nggak ribet kalau mudik.",
+                options: [
+                    { text: "Memahami latar belakang keluarga calon pasangan secara mendalam dapat meminimalisir risiko konflik nilai antar keluarga besar.", type: "strengthen", feedback: "Om: 'Cerdas! Nanti Om kenalin anak Pak RT'. THR cair. 💸" },
+                    { text: "Menikah dengan orang dari latar belakang budaya yang berbeda dapat memperkaya perspektif dan keturunan.", type: "weaken", feedback: "Om: 'Ribet urusan adat nanti!'. THR batal. 📉" },
+                    { text: "Mudik jarak jauh kini semakin mudah dengan banyaknya pilihan transportasi udara dan jalan tol.", type: "weaken", feedback: "Om: 'Tiket pesawat mahal tau!'. THR batal. 📉" },
+                    { text: "Jodoh adalah rahasia Tuhan yang tidak bisa dibatasi oleh sekat geografis.", type: "weaken", feedback: "Om: 'Jangan ceramahin Om'. THR batal. 📉" }
+                ]
+            },
+            {
+                sender: "Tante",
+                statement: "Kamu itu sarjana hukum kenapa nggak kerja di bank saja? Seragamnya rapi, kantornya adem, setiap bulan gajinya pasti. Itu baru namanya sukses.",
+                options: [
+                    { text: "Sektor perbankan menawarkan jenjang karier yang terstruktur serta berbagai jaminan tunjangan kesehatan bagi karyawannya.", type: "strengthen", feedback: "Tante: 'Tuh dengerin, segera lamar sana'. THR aman. 💸" },
+                    { text: "Menjadi pengacara mandiri memberikan kebebasan waktu dan potensi penghasilan yang tidak terbatas.", type: "weaken", feedback: "Tante: 'Penghasilan gak pasti kok bangga'. THR seret. 📉" },
+                    { text: "Banyak pegawai bank yang merasa stres karena target bulanan yang sangat tinggi.", type: "weaken", feedback: "Tante: 'Namanya kerja ya capek'. THR seret. 📉" },
+                    { text: "Di era digital, banyak fungsi perbankan yang mulai digantikan oleh aplikasi, risiko PHK tinggi.", type: "weaken", feedback: "Tante: 'Jangan nakut-nakutin Tante'. THR seret. 📉" }
+                ]
+            },
+            {
+                sender: "Om",
+                statement: "Kalau masuk angin itu jangan minum obat kimia, mending kerokan saja sampai merah. Itu tandanya anginnya keluar semua dari pori-pori.",
+                options: [
+                    { text: "Gesekan pada kulit saat kerokan memicu pelepasan endorfin yang memberikan efek relaksasi dan kenyamanan pada tubuh.", type: "strengthen", feedback: "Om: 'Nah, badan langsung enteng kan?'. THR cair. 💸" },
+                    { text: "Warna merah pada kulit saat dikerok adalah pecahnya pembuluh darah kapiler, bukan gas angin.", type: "weaken", feedback: "Om: 'Sok tau kamu dokter juga bukan'. THR tahan dulu. 📉" },
+                    { text: "Terlalu sering kerokan dapat membuat pori-pori kulit membesar dan memudahkan bakteri masuk.", type: "weaken", feedback: "Om: 'Om dari dulu kerokan sehat aja tuh'. THR tahan dulu. 📉" },
+                    { text: "Masuk angin secara medis biasanya merujuk pada gejala dispepsia atau infeksi virus ringan.", type: "weaken", feedback: "Om: 'Istilah medis bikin pusing'. THR tahan dulu. 📉" }
+                ]
+            },
+            {
+                sender: "Tante",
+                statement: "Main game terus! Itu cuma buang-buang waktu. Mending waktunya dipakai buat bantu Tante masak atau baca buku biar pintar.",
+                options: [
+                    { text: "Menghabiskan waktu berjam-jam di depan layar tanpa aktivitas fisik dapat menurunkan tingkat konsentrasi dan stamina tubuh.", type: "strengthen", feedback: "Tante: 'Dengerin tuh, jangan HP teroos'. THR cair. 💸" },
+                    { text: "Bermain game strategi terbukti dapat meningkatkan kemampuan pengambilan keputusan.", type: "weaken", feedback: "Tante: 'Keputusan apa? Keputusan kalah?'. THR potong. 📉" },
+                    { text: "Industri e-sports kini menawarkan hadiah jutaan dolar bagi pemain profesional.", type: "weaken", feedback: "Tante: 'Halah, paling kamu cuma buang kuota'. THR potong. 📉" },
+                    { text: "Game edukasi dapat membantu anak-anak belajar bahasa asing dengan cara menyenangkan.", type: "weaken", feedback: "Tante: 'Belajar ya di sekolah'. THR potong. 📉" }
+                ]
+            },
+            {
+                sender: "Om",
+                statement: "Mobil itu harus manual. Lebih irit, lebih bertenaga, dan kalau mogok bisa didorong. Mobil matic itu buat orang malas.",
+                options: [
+                    { text: "Komponen kopling pada transmisi manual umumnya memiliki masa pakai yang lebih lama dan biaya perawatan yang lebih ekonomis.", type: "strengthen", feedback: "Om: 'Lelaki sejati pakainya tiga pedal!'. THR cair. 💸" },
+                    { text: "Teknologi transmisi matic modern saat ini sudah jauh lebih efisien dalam konsumsi bahan bakar.", type: "weaken", feedback: "Om: 'Ah, teori marketing itu'. THR gagal. 📉" },
+                    { text: "Menggunakan mobil matic di kemacetan kota besar sangat membantu mengurangi kelelahan fisik.", type: "weaken", feedback: "Om: 'Manja amat jadi orang'. THR gagal. 📉" },
+                    { text: "Nilai jual kembali mobil matic di kota-kota besar cenderung lebih stabil karena permintaan tinggi.", type: "weaken", feedback: "Om: 'Om gak niat jual mobil'. THR gagal. 📉" }
+                ]
+            },
+            {
+                sender: "Tante",
+                statement: "Kalau mau kulit putih dan nggak gampang sakit, minum vitamin C dosis tinggi tiap hari. Tante saja minum yang 1000mg terus.",
+                options: [
+                    { text: "Vitamin C berperan penting dalam sintesis kolagen yang menjaga integritas jaringan kulit dan fungsi sistem kekebalan tubuh.", type: "strengthen", feedback: "Tante: 'Tuh kan, Tante awet muda gara-gara ini'. THR cair. 💸" },
+                    { text: "Kelebihan vitamin C dalam tubuh akan dibuang melalui urine sehingga konsumsi berlebih menjadi sia-sia.", type: "weaken", feedback: "Tante: 'Mahal-mahal dibuang pipis? Ngawur kamu'. THR minus. 📉" },
+                    { text: "Konsumsi vitamin C dosis tinggi jangka panjang tanpa air cukup dapat memicu batu ginjal.", type: "weaken", feedback: "Tante: 'Jangan doain Tante sakit dong!'. THR minus. 📉" },
+                    { text: "Warna kulit seseorang lebih banyak dipengaruhi oleh faktor genetik daripada vitamin.", type: "weaken", feedback: "Tante: 'Kamu bilang Tante item?'. THR minus. 📉" }
+                ]
+            },
+            {
+                sender: "Om",
+                statement: "Jangan cicil mobil dulu, mending uangnya buat DP rumah. Harga tanah naik terus, kalau mobil harganya turun terus begitu keluar dari dealer.",
+                options: [
+                    { text: "Laju kenaikan harga properti di wilayah perkotaan rata-rata melampaui tingkat kenaikan gaji tahunan karyawan.", type: "strengthen", feedback: "Om: 'Investasi cerdas ya properti'. THR tebal. 💸" },
+                    { text: "Cicilan rumah jangka panjang memiliki bunga yang fluktuatif dan bisa sangat membebani pengeluaran.", type: "weaken", feedback: "Om: 'Hidup harus berani spekulasi'. THR tipis. 📉" },
+                    { text: "Mobil merupakan aset produktif yang sangat dibutuhkan untuk menunjang mobilitas pekerjaan.", type: "weaken", feedback: "Om: 'Naik angkot kan bisa'. THR tipis. 📉" },
+                    { text: "Membeli rumah di lokasi jauh dari tempat kerja justru menambah biaya transportasi harian.", type: "weaken", feedback: "Om: 'Nanti juga daerah sana rame'. THR tipis. 📉" }
+                ]
+            },
+            {
+                sender: "Tante",
+                statement: "Minum susu kental manis itu sehat, bikin anak gemuk dan kuat. Dulu Om kamu kecilnya minum itu terus makanya sekarang badannya besar.",
+                options: [
+                    { text: "Susu kental manis masih mengandung kalsium dan sejumlah vitamin yang berkontribusi pada asupan nutrisi harian.", type: "strengthen", feedback: "Tante: 'Generasi dulu kuat-kuat kok'. THR aman. 💸" },
+                    { text: "Susu kental manis memiliki kandungan gula yang sangat tinggi dan kadar protein yang sangat rendah.", type: "weaken", feedback: "Tante: 'Jangan percaya hoax internet'. THR bahaya. 📉" },
+                    { text: "Kegemukan pada anak akibat gula berlebih meningkatkan risiko diabetes dini.", type: "weaken", feedback: "Tante: 'Gemuk itu tandanya makmur'. THR bahaya. 📉" },
+                    { text: "BPOM telah menyatakan bahwa kental manis tidak boleh digunakan sebagai pengganti susu.", type: "weaken", feedback: "Tante: 'BPOM lebay'. THR bahaya. 📉" }
+                ]
+            },
+            {
+                sender: "Om",
+                statement: "Kalau ke acara keluarga itu pakai Batik. Kelihatan sopan dan menghargai orang tua. Jangan pakai kaos oblong, kayak orang mau ke pasar.",
+                options: [
+                    { text: "Penggunaan batik dalam acara resmi memberikan kesan penghormatan terhadap nilai budaya dan tradisi keluarga.", type: "strengthen", feedback: "Om: 'Nah, ini baru budaya timur'. THR cair. 💸" },
+                    { text: "Kaos oblong dari brand mewah saat ini sudah dianggap sebagai gaya busana yang layak.", type: "weaken", feedback: "Om: 'Mahal doang tapi gak sopan'. THR bye. 📉" },
+                    { text: "Kenyamanan berpakaian jauh lebih penting daripada sekadar mengikuti standar kesopanan.", type: "weaken", feedback: "Om: 'Kamu mau nyaman apa mau sopan?'. THR bye. 📉" },
+                    { text: "Penggunaan batik di cuaca panas sering kali membuat pemakainya merasa gerah.", type: "weaken", feedback: "Om: 'AC kan dingin, alesan aja'. THR bye. 📉" }
+                ]
+            },
+            {
+                sender: "Tante",
+                statement: "Masakan Tante nggak pakai banyak garam. Garam itu sumber darah tinggi, nanti kamu cepat marah-marah kalau kebanyakan makan garam.",
+                options: [
+                    { text: "Kelebihan asupan natrium dapat menyebabkan retensi cairan yang meningkatkan tekanan pada dinding pembuluh darah.", type: "strengthen", feedback: "Tante: 'Tante emang peduli kesehatan keluarga'. THR aman. 💸" },
+                    { text: "Natrium dalam garam sangat dibutuhkan tubuh untuk mengatur keseimbangan cairan dan saraf.", type: "weaken", feedback: "Tante: 'Kamu mau stroke muda?'. THR zonk. 📉" },
+                    { text: "Tekanan darah tinggi lebih banyak disebabkan oleh faktor genetik dan stres.", type: "weaken", feedback: "Tante: 'Genetik keluarga kita bagus ya!'. THR zonk. 📉" },
+                    { text: "Tanpa garam yang cukup, rasa masakan akan menjadi hambar dan menurunkan nafsu makan.", type: "weaken", feedback: "Tante: 'Bilang aja masakan Tante gak enak!'. THR zonk. 📉" }
+                ]
+            },
+            {
+                sender: "Om",
+                statement: "Kamu buka usaha laundry saja di dekat kampus. Mahasiswa itu malas nyuci, pasti laku keras dan uangnya ngalir terus tiap hari.",
+                options: [
+                    { text: "Kebutuhan akan jasa pencucian pakaian merupakan kebutuhan dasar bagi mahasiswa yang memiliki keterbatasan waktu.", type: "strengthen", feedback: "Om: 'Om modalin deh kalau kamu mau'. THR jackpot. 💸" },
+                    { text: "Persaingan bisnis laundry di area kampus sudah sangat jenuh dengan perang harga.", type: "weaken", feedback: "Om: 'Kamu belum coba udah nyerah'. THR gagal. 📉" },
+                    { text: "Kenaikan harga bahan baku dan listrik membuat margin laba laundry sangat tipis.", type: "weaken", feedback: "Om: 'Bisnis itu ada risikonya'. THR gagal. 📉" },
+                    { text: "Mahasiswa saat ini lebih memilih menggunakan jasa laundry koin mandiri.", type: "weaken", feedback: "Om: 'Mahal itu alatnya'. THR gagal. 📉" }
+                ]
+            },
+            {
+                sender: "Tante",
+                statement: "Jangan cuci mobil malam-malam, nanti catnya cepat pudar karena kena embun. Lagian nggak baik buat kesehatan.",
+                options: [
+                    { text: "Sisa air yang terjebak di sela-sela bodi mobil pada malam hari dapat mempercepat timbulnya bercak jamur dan korosi.", type: "strengthen", feedback: "Tante: 'Tuh kan, nurut sama orang tua'. THR cair. 💸" },
+                    { text: "Mencuci mobil di bawah terik matahari justru lebih berisiko merusak cat.", type: "weaken", feedback: "Tante: 'Siapa suruh cuci pas siang bolong?'. THR seret. 📉" },
+                    { text: "Cat mobil modern sudah dilengkapi dengan lapisan clear coat yang tahan embun.", type: "weaken", feedback: "Tante: 'Mobil Om kamu rusak tuh catnya'. THR seret. 📉" },
+                    { text: "Mencuci mobil malam hari lebih efisien air karena penguapan rendah.", type: "weaken", feedback: "Tante: 'Hemat air tapi sakit buat apa?'. THR seret. 📉" }
+                ]
+            },
+            {
+                sender: "Om",
+                statement: "Kita mudik H-7 saja sebelum lebaran. Biar nggak kena macet parah dan bisa lebih lama kangen-kangenan di kampung.",
+                options: [
+                    { text: "Melakukan perjalanan lebih awal memberikan waktu pemulihan fisik yang cukup bagi keluarga sebelum lebaran.", type: "strengthen", feedback: "Om: 'Sip, packing mulai sekarang!'. THR cair. 💸" },
+                    { text: "Kebijakan cuti bersama biasanya baru dimulai H-3, jadi butuh cuti tambahan.", type: "weaken", feedback: "Om: 'Kerja mulu kapan senengnya'. THR batal. 📉" },
+                    { text: "Harga tiket transportasi umum mengalami lonjakan harga signifikan H-7.", type: "weaken", feedback: "Om: 'Om bayarin! (tapi bohong)'. THR batal. 📉" },
+                    { text: "Banyak proyek pekerjaan yang deadline-nya tepat sebelum libur.", type: "weaken", feedback: "Om: 'Alasan aja kamu gak mau ketemu Om'. THR batal. 📉" }
+                ]
+            }
+        ];
+
+        // --- GAME LOGIC ---
+        
+        let currentGameMode = 'rt'; // 'rt' or 'keluarga'
         let gameQuestions = [];
         let currentLevel = 0;
-        let annoyance = 0;
+        let score = 0; // Annoyance for RT, THR for Keluarga
         const totalQuestionsPerSession = 5;
 
-        // Utility: Acak Array (Fisher-Yates Shuffle)
         function shuffleArray(array) {
             for (let i = array.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
@@ -366,26 +568,101 @@
             return array;
         }
 
-        // Navigation
-        function showBriefing() {
+        // 1. BRIEFING & SELECT MODE
+        function showBriefing(mode) {
+            currentGameMode = mode;
             document.getElementById('modal-briefing').classList.remove('hidden');
+            
+            const titleEl = document.getElementById('mission-title');
+            const contentEl = document.getElementById('mission-content');
+            
+            if (mode === 'rt') {
+                // Set Briefing RT
+                titleEl.innerText = "Misi: Wakil Suara Warga";
+                titleEl.className = "text-lg font-bold";
+                contentEl.innerHTML = `
+                    <p class="text-gray-700 leading-relaxed mb-4 text-sm md:text-base">
+                        Warga resah dengan kelakuan <span class="font-bold text-pink-600">Ibu RT</span> yang otoriter.
+                    </p>
+                    <div class="bg-red-50 p-4 rounded-lg mb-4 text-sm border-l-4 border-red-500">
+                        <p class="font-semibold text-gray-800 mb-1 italic">Tugas Anda:</p>
+                        <ul class="list-disc ml-4 space-y-1 text-gray-600">
+                            <li>Lawan 5 opini Ibu RT.</li>
+                            <li>Pilih jawaban yang <span class="font-bold text-red-600">MEMPERLEMAH (Weaken)</span> argumennya.</li>
+                            <li>Target: Bikin Ibu RT Kesal (Score 100%)!</li>
+                        </ul>
+                    </div>
+                `;
+            } else {
+                // Set Briefing Keluarga
+                titleEl.innerText = "Misi: Demi THR Lebaran";
+                titleEl.className = "text-lg font-bold text-yellow-100";
+                contentEl.innerHTML = `
+                    <p class="text-gray-700 leading-relaxed mb-4 text-sm md:text-base">
+                        Lebaran sebentar lagi. Om dan Tante sedang aktif membagikan "info-info" di grup.
+                    </p>
+                    <div class="bg-green-50 p-4 rounded-lg mb-4 text-sm border-l-4 border-green-500">
+                        <p class="font-semibold text-gray-800 mb-1 italic">Tugas Anda:</p>
+                        <ul class="list-disc ml-4 space-y-1 text-gray-600">
+                            <li>Hadapi 5 pernyataan Om/Tante.</li>
+                            <li>Pilih jawaban yang <span class="font-bold text-green-600">TIDAK MEMPERLEMAH</span> (Setuju/Netral).</li>
+                            <li>Jangan membantah! Nanti dicoret dari daftar penerima THR.</li>
+                            <li>Target: Kumpulkan THR (Score 100%)!</li>
+                        </ul>
+                    </div>
+                `;
+            }
         }
 
+        // 2. SETUP GAME SCREEN
         function startGame() {
             document.getElementById('modal-briefing').classList.add('hidden');
             document.getElementById('screen-home').classList.add('hidden');
             document.getElementById('screen-game').classList.remove('hidden');
             
-            // RESET GAME STATE
-            annoyance = 0;
+            // Reset State
+            score = 0;
             currentLevel = 0;
-            updateAnnoyanceBar();
             document.getElementById('dynamic-messages').innerHTML = '';
-
-            // Acak Bank Soal dan ambil 5 saja
-            const shuffled = shuffleArray([...bankSoal]); 
-            gameQuestions = shuffled.slice(0, totalQuestionsPerSession);
             
+            // Setup Visuals based on Mode
+            const avatar = document.getElementById('game-avatar');
+            const title = document.getElementById('game-title');
+            const members = document.getElementById('game-members');
+            const scoreLabel = document.getElementById('score-label');
+            const bar = document.getElementById('bar-score');
+            const intro = document.getElementById('game-intro');
+            const hint = document.getElementById('options-hint');
+
+            if (currentGameMode === 'rt') {
+                // Load Soal RT
+                const shuffled = shuffleArray([...bankSoalRT]); 
+                gameQuestions = shuffled.slice(0, totalQuestionsPerSession);
+                
+                // Visual RT
+                avatar.src = "https://images.unsplash.com/photo-1560717845-968823efbee1?auto=format&fit=crop&w=150&q=80";
+                title.innerText = "Grup Warga Komplek Berkah";
+                members.innerText = "Ibu RT, Pak RW, Anda...";
+                scoreLabel.innerText = "🔥 KEKESALAN";
+                bar.className = "progress-bar h-full bg-gradient-to-r from-orange-400 to-red-600";
+                intro.innerText = "Misi: Patahkan Argumen Ibu RT!";
+                hint.innerText = "Pilih Balasan (Target: Perlemah)";
+            } else {
+                // Load Soal Keluarga
+                const shuffled = shuffleArray([...bankSoalKeluarga]);
+                gameQuestions = shuffled.slice(0, totalQuestionsPerSession);
+
+                // Visual Keluarga
+                avatar.src = "https://api.dicebear.com/7.x/avataaars/svg?seed=Grandpa&backgroundColor=b6e3f4";
+                title.innerText = "Keluarga Besar (Haji Somad)";
+                members.innerText = "Om Agus, Tante Yuni, Anda...";
+                scoreLabel.innerText = "💸 THR METER";
+                bar.className = "progress-bar h-full bg-gradient-to-r from-yellow-400 to-green-600";
+                intro.innerText = "Misi: Cari Muka Demi THR!";
+                hint.innerText = "Pilih Balasan (Target: JANGAN Memperlemah)";
+            }
+
+            updateScoreBar();
             initLevel();
         }
 
@@ -395,19 +672,29 @@
             document.getElementById('overlay').classList.add('hidden');
         }
 
+        // 3. GAME LOOP
         function initLevel() {
-            // Cek kondisi menang atau habis soal
-            if (annoyance >= 100 || currentLevel >= gameQuestions.length) {
+            // Check End Game
+            if (currentLevel >= gameQuestions.length) {
                 checkFinalResult();
                 return;
             }
+            // Khusus RT: kalau score 100 langsung menang (dikick)
+            if (currentGameMode === 'rt' && score >= 100) {
+                checkFinalResult();
+                return;
+            }
+            // Khusus Keluarga: Tidak ada auto-win di tengah jalan, harus survive sampai akhir
 
             const indicator = document.getElementById('typing-indicator');
+            const senderName = currentGameMode === 'rt' ? 'Ibu RT' : gameQuestions[currentLevel].sender;
+            
+            indicator.innerText = `${senderName} sedang mengetik...`;
             indicator.classList.remove('hidden');
             
             setTimeout(() => {
                 indicator.classList.add('hidden');
-                addMessage(gameQuestions[currentLevel].statement, 'left', 'Ibu RT');
+                addMessage(gameQuestions[currentLevel].statement, 'left', senderName);
                 showOptions();
             }, 1000);
         }
@@ -427,10 +714,7 @@
             `;
             container.appendChild(div);
             const chatCont = document.getElementById('chat-container');
-            // Timeout kecil agar render selesai sebelum scroll
-            setTimeout(() => {
-                chatCont.scrollTo({ top: chatCont.scrollHeight, behavior: 'smooth' });
-            }, 50);
+            setTimeout(() => { chatCont.scrollTo({ top: chatCont.scrollHeight, behavior: 'smooth' }); }, 50);
         }
 
         function showOptions() {
@@ -454,39 +738,40 @@
             addMessage(option.text, 'right');
 
             setTimeout(() => {
-                // Kalkulasi Skor Tanpa Bar Cinta
-                // Weaken = +25 annoyance
-                // Strengthen/Neutral = annoyance turun sedikit biar susah menang
-                
-                if (option.type === 'weaken') {
-                    annoyance += 25;
-                } else if (option.type === 'strengthen') {
-                    annoyance = Math.max(0, annoyance - 10);
+                // --- SCORING LOGIC ---
+                if (currentGameMode === 'rt') {
+                    // RT: Weaken = Good (+), Strengthen/Neutral = Bad (-)
+                    if (option.type === 'weaken') score += 25;
+                    else if (option.type === 'strengthen') score = Math.max(0, score - 10);
+                } else {
+                    // KELUARGA: Weaken = Bad (-), Strengthen/Neutral = Good (+)
+                    if (option.type === 'weaken') {
+                        score = Math.max(0, score - 20); // Kritik mengurangi THR
+                    } else {
+                        // Strengthen atau Neutral menambah THR
+                        score += 20; 
+                    }
                 }
-                // Neutral tidak mengubah skor
 
-                updateAnnoyanceBar();
+                updateScoreBar();
                 
                 const sysDiv = document.createElement('div');
                 sysDiv.className = "bg-white/70 text-gray-600 text-[10px] p-2 rounded-full self-center px-4 shadow-sm italic text-center max-w-[80%] border border-gray-200 mt-2 mb-4";
                 sysDiv.innerText = option.feedback;
                 document.getElementById('dynamic-messages').appendChild(sysDiv);
                 
-                // Scroll again after adding feedback
                 const chatCont = document.getElementById('chat-container');
-                setTimeout(() => {
-                    chatCont.scrollTo({ top: chatCont.scrollHeight, behavior: 'smooth' });
-                }, 50);
+                setTimeout(() => { chatCont.scrollTo({ top: chatCont.scrollHeight, behavior: 'smooth' }); }, 50);
 
                 currentLevel++;
                 setTimeout(initLevel, 1500);
             }, 500);
         }
 
-        function updateAnnoyanceBar() {
-            const val = Math.min(100, annoyance);
-            document.getElementById('bar-annoyance').style.width = val + "%";
-            document.getElementById('annoyance-text').innerText = val + "%";
+        function updateScoreBar() {
+            const val = Math.min(100, score);
+            document.getElementById('bar-score').style.width = val + "%";
+            document.getElementById('score-text').innerText = val + "%";
         }
 
         function checkFinalResult() {
@@ -497,14 +782,27 @@
 
             overlay.classList.remove('hidden');
 
-            if (annoyance >= 100) {
-                icon.innerText = "🚫";
-                title.innerText = "ANDA DIKICK!";
-                desc.innerText = `MISI BERHASIL! Anda membuat Ibu RT emosi sampai ke ubun-ubun dengan fakta-fakta logis. Warga merayakan kebebasan berpikir! Selamat, Anda Pahlawan Logika!`;
+            if (currentGameMode === 'rt') {
+                if (score >= 100) {
+                    icon.innerText = "🚫";
+                    title.innerText = "ANDA DIKICK!";
+                    desc.innerText = `MISI BERHASIL! Anda membuat Ibu RT emosi sampai ke ubun-ubun dengan fakta logis. Warga merayakan kebebasan!`;
+                } else {
+                    icon.innerText = "😐";
+                    title.innerText = "GAGAL DIKICK";
+                    desc.innerText = `Skor Kekesalan hanya ${score}%. Anda kurang kritis! Coba lagi serang argumennya!`;
+                }
             } else {
-                icon.innerText = "😐";
-                title.innerText = "GAGAL DIKICK";
-                desc.innerText = `Skor Kekesalan hanya ${annoyance}%. Ibu RT masih menganggap Anda warga yang bisa ditoleransi. Kurang kritis! Coba lagi dan jangan ragu untuk menyerang argumennya!`;
+                // Mode Keluarga
+                if (score >= 80) {
+                    icon.innerText = "💰";
+                    title.innerText = "THR CAIR!";
+                    desc.innerText = `SELAMAT! Anda berhasil menjadi keponakan kesayangan. THR tebal siap masuk dompet. Idealisme tergadai, tapi perut kenyang!`;
+                } else {
+                    icon.innerText = "😭";
+                    title.innerText = "DICORET DARI KK";
+                    desc.innerText = `Skor THR hanya ${score}%. Anda terlalu banyak membantah Om dan Tante. Lebaran tahun ini Anda cuma dapat rengginang.`;
+                }
             }
         }
     </script>
