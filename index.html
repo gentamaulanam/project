@@ -90,6 +90,20 @@
                     <p class="text-sm text-gray-500 truncate">Siska: Guys, si Roni fix sukses!</p>
                 </div>
             </div>
+
+            <!-- Grup Baru (Panitia Pensi / Asumsi) -->
+            <div onclick="showBriefing('asumsi')" class="flex items-center p-4 hover:bg-gray-100 cursor-pointer border-b border-gray-100 transition active:bg-gray-200">
+                <div class="w-14 h-14 bg-orange-100 rounded-full flex-shrink-0 mr-4 flex items-center justify-center border overflow-hidden">
+                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix&backgroundColor=ffedd5" alt="Panitia" class="w-full h-full">
+                </div>
+                <div class="flex-grow min-w-0">
+                    <div class="flex justify-between">
+                        <h3 class="font-bold text-gray-800">Panitia PENSI 2024</h3>
+                        <span class="text-xs text-green-500 whitespace-nowrap ml-2">10:00</span>
+                    </div>
+                    <p class="text-sm text-gray-500 truncate">Ketua Panitia: Pensi tahun ini harus internasional!</p>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -122,7 +136,7 @@
                 <h1 id="game-title" class="font-bold text-sm truncate">Nama Grup</h1>
                 <p id="game-members" class="text-[10px] text-green-200 truncate">Anggota...</p>
             </div>
-            <!-- BAR SCORE (Dinamis: Kekesalan / THR / Logika) -->
+            <!-- BAR SCORE (Dinamis) -->
             <div class="flex flex-col items-end w-[35%] max-w-[150px] shrink-0">
                 <div class="flex justify-between w-full mb-1">
                     <span id="score-label" class="text-[9px] md:text-[10px] uppercase font-bold text-white tracking-widest truncate mr-1">SCORE</span>
@@ -174,6 +188,7 @@
                     { text: "Di poskamling ada colokan listrik buat ngecas gak ya?", type: "neutral", feedback: "Pertanyaan tidak relevan." }
                 ]
             },
+            // ... (Soal RT 2-20 tetap ada, tidak dihapus)
             {
                 statement: "Semua kucing liar di komplek harus diusir atau dibuang jauh-jauh, karena mereka sumber penyakit dan bikin lingkungan kotor.",
                 options: [
@@ -370,6 +385,7 @@
                     { text: "Automasi AI diprediksi akan menggantikan peran akuntan dasar dalam 10 tahun ke depan.", type: "weaken", feedback: "Om: 'Jangan percaya robot!'. THR melayang. 📉" }
                 ]
             },
+            // ... (Soal Keluarga 3-20 tetap ada, tidak dihapus)
             {
                 sender: "Tante",
                 statement: "Jangan sering minum air es pas lagi makan, nanti lemaknya membeku di perut dan bikin kamu buncit!",
@@ -554,16 +570,15 @@
 
         // --- DATA SOAL ALUMNI (20 SOAL) ---
         // Misi: Tentukan Kesimpulan (Logic)
-        // type: 'logic_correct' (Score +)
-        // type: 'logic_wrong' (Score -)
+        // REVERT: Siska sends both messages
         const bankSoalAlumni = [
             {
                 sender: "Siska",
                 statement: "Eh May, semua alumni yang punya startup sendiri itu sudah pasti kaya raya. Nah, si Eko itu kan baru saja rilis startup 'Sayur-Go'.",
-                reply_context: "Oh, berarti fix banget, si Eko sekarang sudah kaya raya!",
+                reply_context: "Berarti fix banget, si Eko sekarang sudah kaya raya!",
                 options: [
-                    { text: "Kesimpulan Maya: PASTI BENAR", type: "logic_correct", feedback: "Betul! (Modus Ponens). Jika P -> Q, dan P terjadi, maka Q pasti terjadi. 🧠" },
-                    { text: "Kesimpulan Maya: PASTI SALAH", type: "logic_wrong", feedback: "Salah. Secara logika deduktif, kesimpulan Maya valid berdasarkan premisnya. 📉" },
+                    { text: "Kesimpulan Siska: PASTI BENAR", type: "logic_correct", feedback: "Betul! (Modus Ponens). Jika P -> Q, dan P terjadi, maka Q pasti terjadi. 🧠" },
+                    { text: "Kesimpulan Siska: PASTI SALAH", type: "logic_wrong", feedback: "Salah. Secara logika deduktif, kesimpulan valid berdasarkan premisnya. 📉" },
                     { text: "TIDAK DAPAT DISIMPULKAN", type: "logic_wrong", feedback: "Salah. Premis dan fakta sudah cukup untuk menarik kesimpulan pasti. 📉" }
                 ]
             },
@@ -572,29 +587,30 @@
                 statement: "Tahu nggak, kalau sudah jadi Manajer di perusahaan multinasional, jadwalnya pasti padat dan sering lembur. Si Andi itu aku lihat sering banget lembur sampai malam.",
                 reply_context: "Wah, pasti si Andi sekarang sudah naik jabatan jadi Manajer itu!",
                 options: [
-                    { text: "Kesimpulan Maya: TIDAK DAPAT DISIMPULKAN", type: "logic_correct", feedback: "Cerdas! (Affirming the Consequent). Lembur belum tentu Manajer (bisa saja staf biasa). 🧠" },
-                    { text: "Kesimpulan Maya: PASTI BENAR", type: "logic_wrong", feedback: "Jebakan! Premisnya 'Manajer -> Lembur', bukan sebaliknya. 📉" },
-                    { text: "Kesimpulan Maya: PASTI SALAH", type: "logic_wrong", feedback: "Belum tentu salah juga, mungkin saja dia Manajer. Jadi 'Tidak Dapat Disimpulkan'. 📉" }
+                    { text: "Kesimpulan Siska: TIDAK DAPAT DISIMPULKAN", type: "logic_correct", feedback: "Cerdas! (Affirming the Consequent). Lembur belum tentu Manajer (bisa saja staf biasa). 🧠" },
+                    { text: "Kesimpulan Siska: PASTI BENAR", type: "logic_wrong", feedback: "Jebakan! Premisnya 'Manajer -> Lembur', bukan sebaliknya. 📉" },
+                    { text: "Kesimpulan Siska: PASTI SALAH", type: "logic_wrong", feedback: "Belum tentu salah juga, mungkin saja dia Manajer. Jadi 'Tidak Dapat Disimpulkan'. 📉" }
                 ]
             },
+            // ... (Soal Alumni 3-20 tetap ada, tidak dihapus)
             {
                 sender: "Siska",
                 statement: "Peraturannya jelas May, semua alumni yang datang ke reuni tahun ini wajib membawa pasangan. Tapi si Deni tadi aku lihat datang sendirian saja di lokasi.",
                 reply_context: "Lho, berarti si Deni sebenarnya tidak masuk dalam daftar peserta acara reuni kita hari ini.",
                 options: [
-                    { text: "Kesimpulan Maya: PASTI BENAR", type: "logic_correct", feedback: "Tepat! (Modus Tollens). Peserta -> Bawa Pasangan. Tidak Bawa -> Bukan Peserta (ilegal). 🧠" },
-                    { text: "Kesimpulan Maya: PASTI SALAH", type: "logic_wrong", feedback: "Salah. Logika Maya valid kok. 📉" },
+                    { text: "Kesimpulan Siska: PASTI BENAR", type: "logic_correct", feedback: "Tepat! (Modus Tollens). Peserta -> Bawa Pasangan. Tidak Bawa -> Bukan Peserta (ilegal). 🧠" },
+                    { text: "Kesimpulan Siska: PASTI SALAH", type: "logic_wrong", feedback: "Salah. Logika valid kok. 📉" },
                     { text: "TIDAK DAPAT DISIMPULKAN", type: "logic_wrong", feedback: "Salah. Informasi sudah lengkap untuk menyimpulkan. 📉" }
                 ]
             },
             {
                 sender: "Siska",
-                statement: "Aku dengar sebagian alumni yang ambil sertifikasi 'Project Management' sekarang sudah bekerja di luar negeri. Si Maya (kamu) kan kemarin baru lulus sertifikasi itu.",
-                reply_context: "Iya sih, berarti aku pasti bakal kerja di luar negeri juga dong!",
+                statement: "Aku dengar sebagian alumni yang ambil sertifikasi 'Project Management' sekarang sudah bekerja di luar negeri. Si Maya kan kemarin baru lulus sertifikasi itu.",
+                reply_context: "Berarti si Maya pasti bakal kerja di luar negeri juga dong!",
                 options: [
-                    { text: "Kesimpulan Maya: TIDAK DAPAT DISIMPULKAN", type: "logic_correct", feedback: "Pintar! 'Sebagian' artinya tidak semua. Maya bisa masuk golongan yang ke LN atau tidak. 🧠" },
-                    { text: "Kesimpulan Maya: PASTI BENAR", type: "logic_wrong", feedback: "Sotoy! Kata 'Sebagian' tidak menjamin Maya termasuk di dalamnya. 📉" },
-                    { text: "Kesimpulan Maya: PASTI SALAH", type: "logic_wrong", feedback: "Belum tentu salah, mungkin saja dia ke LN. Tapi tidak 'Pasti'. 📉" }
+                    { text: "Kesimpulan Siska: TIDAK DAPAT DISIMPULKAN", type: "logic_correct", feedback: "Pintar! 'Sebagian' artinya tidak semua. Maya bisa masuk golongan yang ke LN atau tidak. 🧠" },
+                    { text: "Kesimpulan Siska: PASTI BENAR", type: "logic_wrong", feedback: "Sotoy! Kata 'Sebagian' tidak menjamin Maya termasuk di dalamnya. 📉" },
+                    { text: "Kesimpulan Siska: PASTI SALAH", type: "logic_wrong", feedback: "Belum tentu salah, mungkin saja dia ke LN. Tapi tidak 'Pasti'. 📉" }
                 ]
             },
             {
@@ -602,166 +618,222 @@
                 statement: "Nggak ada alumni angkatan kita yang sukses tapi nggak punya mobil mewah. Liat deh si Budi, sampai sekarang mobilnya masih motor butut.",
                 reply_context: "Kasihan ya, berarti si Budi memang belum sukses hidupnya.",
                 options: [
-                    { text: "Kesimpulan Maya: PASTI BENAR", type: "logic_correct", feedback: "Logis! (Modus Tollens). Sukses -> Mobil Mewah. Tidak Mobil Mewah -> Tidak Sukses. 🧠" },
-                    { text: "Kesimpulan Maya: PASTI SALAH", type: "logic_wrong", feedback: "Salah. Kesimpulannya valid secara logika (meskipun premisnya kejam). 📉" },
+                    { text: "Kesimpulan Siska: PASTI BENAR", type: "logic_correct", feedback: "Logis! (Modus Tollens). Sukses -> Mobil Mewah. Tidak Mobil Mewah -> Tidak Sukses. 🧠" },
+                    { text: "Kesimpulan Siska: PASTI SALAH", type: "logic_wrong", feedback: "Salah. Kesimpulannya valid secara logika (meskipun premisnya kejam). 📉" },
                     { text: "TIDAK DAPAT DISIMPULKAN", type: "logic_wrong", feedback: "Salah. Premisnya jelas 'Tidak ada sukses tanpa mobil mewah'. 📉" }
                 ]
-            },
+            }
+        ];
+
+        // --- DATA SOAL PANITIA / ASUMSI (20 SOAL) ---
+        // Misi: Cari ASUMSI (Assumption) yang mendasari pernyataan Ketua
+        // type: 'correct_assumption' (Score +)
+        const bankSoalAsumsi = [
             {
-                sender: "Siska",
-                statement: "Anak lulusan Sastra kalau mau sukses itu harus jadi penulis. Si Rina itu kan lulusan Sastra, tapi dia sekarang sukses banget jadi pengusaha kuliner.",
-                reply_context: "Berarti pengusaha kuliner itu sebenarnya sama saja dengan penulis bagi anak Sastra.",
+                sender: "Ketua Panitia",
+                statement: "Penyelenggaraan pensi tahun ini harus mengundang artis dari mancanegara karena hal tersebut akan meningkatkan nilai jual tiket dan menarik lebih banyak perusahaan untuk menjadi sponsor utama.",
                 options: [
-                    { text: "Kesimpulan Maya: PASTI SALAH", type: "logic_correct", feedback: "Betul! Premisnya 'Sastra Sukses -> Penulis'. Faktanya Rina Sastra, Sukses, tapi Pengusaha. Ini kontradiksi, bukan ekuivalensi. 🧠" },
-                    { text: "Kesimpulan Maya: PASTI BENAR", type: "logic_wrong", feedback: "Salah. Pengusaha Kuliner != Penulis. 📉" },
-                    { text: "TIDAK DAPAT DISIMPULKAN", type: "logic_wrong", feedback: "Salah. Kesimpulannya jelas salah karena menyamakan dua profesi berbeda. 📉" }
+                    { text: "Kehadiran artis internasional merupakan faktor penentu utama minat sponsor dan kenaikan harga tiket di mata calon penonton.", type: "correct_assumption", feedback: "Tepat! Ini dasar keyakinan Ketua. 🎯" },
+                    { text: "Seluruh perusahaan sponsor hanya tertarik pada acara yang melibatkan artis internasional.", type: "wrong_assumption", feedback: "Terlalu absolut (seluruh), belum tentu asumsi dasar. ❌" },
+                    { text: "Artis mancanegara memiliki jadwal yang fleksibel untuk menghadiri acara sekolah.", type: "wrong_assumption", feedback: "Itu teknis jadwal, bukan asumsi dampak ekonomi. ❌" },
+                    { text: "Biaya mengundang artis mancanegara lebih murah dibandingkan biaya promosi besar-besaran.", type: "wrong_assumption", feedback: "Fakta biaya, bukan asumsi pendapatan. ❌" }
                 ]
             },
             {
-                sender: "Siska",
-                statement: "Semua alumni yang rajin ikut lari maraton badannya pasti bugar. Si Tono itu badannya nggak bugar sama sekali, sering sakit-sakitan.",
-                reply_context: "Jelas banget, Tono pasti nggak pernah ikut lari maraton selama ini.",
+                sender: "Sie Bendahara",
+                statement: "Mulai tahun ini, seluruh transaksi di gerai makanan pensi wajib menggunakan sistem QRIS. Kebijakan ini akan menghilangkan antrean panjang yang biasanya terjadi di depan gerai makanan.",
                 options: [
-                    { text: "Kesimpulan Maya: PASTI BENAR", type: "logic_correct", feedback: "Tepat! (Modus Tollens). Maraton -> Bugar. Tidak Bugar -> Tidak Maraton. 🧠" },
-                    { text: "Kesimpulan Maya: PASTI SALAH", type: "logic_wrong", feedback: "Salah. Kesimpulannya valid. 📉" },
-                    { text: "TIDAK DAPAT DISIMPULKAN", type: "logic_wrong", feedback: "Salah. Data cukup. 📉" }
+                    { text: "Durasi transaksi menggunakan sistem non-tunai secara signifikan lebih singkat dibandingkan durasi transaksi menggunakan uang tunai.", type: "correct_assumption", feedback: "Betul! Tanpa asumsi ini, sistem QRIS malah bikin macet. 🎯" },
+                    { text: "Seluruh siswa memiliki akses terhadap perangkat telekomunikasi dan saldo dompet digital yang memadai.", type: "wrong_assumption", feedback: "Itu syarat/prasyarat, bukan asumsi tentang kecepatan antrean. ❌" },
+                    { text: "Penjual makanan di pensi lebih menyukai sistem digital dibandingkan uang tunai.", type: "wrong_assumption", feedback: "Itu preferensi penjual. ❌" },
+                    { text: "Antrean panjang di gerai makanan merupakan satu-satunya masalah dalam penyelenggaraan pensi.", type: "wrong_assumption", feedback: "Terlalu menyederhanakan masalah. ❌" }
                 ]
             },
             {
-                sender: "Siska",
-                statement: "Beberapa alumni yang hobi koleksi jam tangan mewah biasanya punya tabungan miliaran. Si Joko itu hobinya koleksi jam tangan mewah lho.",
-                reply_context: "Wah, Joko pasti punya tabungan miliaran itu di bank!",
+                sender: "Sie Lapangan",
+                statement: "Kita harus mengadakan panggung utama di lapangan terbuka (outdoor) agar kapasitas penonton menjadi maksimal dan suasana acara menjadi lebih meriah.",
                 options: [
-                    { text: "Kesimpulan Maya: TIDAK DAPAT DISIMPULKAN", type: "logic_correct", feedback: "Cerdas! 'Beberapa' tidak menjamin semua. Joko mungkin hobi tapi tabungannya biasa saja. 🧠" },
-                    { text: "Kesimpulan Maya: PASTI BENAR", type: "logic_wrong", feedback: "Salah. Kata 'Beberapa' membuat kesimpulan 'Pasti' menjadi tidak valid. 📉" },
-                    { text: "Kesimpulan Maya: PASTI SALAH", type: "logic_wrong", feedback: "Belum tentu salah juga. 📉" }
+                    { text: "Kondisi cuaca pada hari pelaksanaan acara tidak akan menghambat keberlangsungan kegiatan di panggung terbuka.", type: "correct_assumption", feedback: "Cerdas! Asumsi cuaca adalah kunci keberhasilan acara outdoor. 🎯" },
+                    { text: "Biaya penyewaan lahan outdoor lebih ekonomis dibandingkan penyewaan aula tertutup.", type: "wrong_assumption", feedback: "Itu pertimbangan biaya, bukan suasana. ❌" },
+                    { text: "Lapangan terbuka memiliki sistem akustik yang lebih baik dibandingkan ruangan tertutup.", type: "wrong_assumption", feedback: "Itu teknis audio. ❌" },
+                    { text: "Meriahnya suasana acara hanya dapat dicapai melalui penambahan kapasitas penonton.", type: "wrong_assumption", feedback: "Terlalu sempit definisinya. ❌" }
                 ]
             },
             {
-                sender: "Siska",
-                statement: "Siapa saja yang mengerti investasi saham pasti paham cara baca laporan keuangan. Si Dedi itu jago banget main saham.",
-                reply_context: "Berarti Dedi pasti paham cara baca laporan keuangan perusahaan.",
+                sender: "Sie Humas",
+                statement: "Penjualan tiket sistem early bird dengan harga yang jauh lebih murah harus dibuka satu bulan sebelum acara. Hal ini bertujuan untuk memastikan seluruh kuota tiket habis terjual sebelum hari pelaksanaan.",
                 options: [
-                    { text: "Kesimpulan Maya: PASTI BENAR", type: "logic_correct", feedback: "Valid! (Modus Ponens). Mengerti Saham -> Paham Laporan. Dedi Mengerti -> Dedi Paham. 🧠" },
-                    { text: "Kesimpulan Maya: PASTI SALAH", type: "logic_wrong", feedback: "Salah. Logikanya lurus. 📉" },
-                    { text: "TIDAK DAPAT DISIMPULKAN", type: "logic_wrong", feedback: "Salah. Premis universal mendukung kesimpulan ini. 📉" }
+                    { text: "Calon penonton memiliki kecenderungan untuk membeli tiket lebih awal jika terdapat insentif berupa selisih harga yang signifikan.", type: "correct_assumption", feedback: "Tepat! Perilaku konsumen adalah asumsi utamanya. 🎯" },
+                    { text: "Tiket yang dijual dengan harga normal tidak akan laku sama sekali di mata calon pengunjung.", type: "wrong_assumption", feedback: "Terlalu pesimis dan absolut. ❌" },
+                    { text: "Panitia tidak membutuhkan aliran dana segar di awal masa persiapan operasional acara.", type: "wrong_assumption", feedback: "Justru kebalikannya. ❌" },
+                    { text: "Seluruh calon penonton sudah memiliki kepastian jadwal untuk hadir satu bulan sebelum acara dimulai.", type: "wrong_assumption", feedback: "Terlalu idealis. ❌" }
                 ]
             },
             {
-                sender: "Siska",
-                statement: "Kalau orang tinggal di apartemen daerah SCBD, gaya hidupnya pasti hedon. Si Citra itu gaya hidupnya hedon banget sekarang.",
-                reply_context: "Fix, si Citra sekarang pasti sudah pindah tinggal di apartemen SCBD.",
+                sender: "Sie Keamanan",
+                statement: "Siswa dilarang membawa kendaraan pribadi ke sekolah saat hari pelaksanaan pensi. Kebijakan ini akan menjamin area sekolah tetap rapi dan bebas dari kemacetan lalu lintas di sekitar pintu masuk.",
                 options: [
-                    { text: "Kesimpulan Maya: TIDAK DAPAT DISIMPULKAN", type: "logic_correct", feedback: "Benar! (Affirming the Consequent). Hedon tidak harus tinggal di SCBD. 🧠" },
-                    { text: "Kesimpulan Maya: PASTI BENAR", type: "logic_wrong", feedback: "Salah. Premisnya terbalik. 📉" },
-                    { text: "Kesimpulan Maya: PASTI SALAH", type: "logic_wrong", feedback: "Belum tentu salah, mungkin saja dia tinggal di sana. 📉" }
+                    { text: "Kendaraan pribadi siswa merupakan faktor utama penyebab ketidakteraturan dan kemacetan di area sekolah.", type: "correct_assumption", feedback: "Benar! Asumsinya sumber masalah adalah kendaraan siswa. 🎯" },
+                    { text: "Jumlah petugas keamanan tidak cukup untuk mengatur volume parkir kendaraan pribadi yang masuk.", type: "wrong_assumption", feedback: "Alasan logistik, bukan asumsi penyebab macet. ❌" },
+                    { text: "Seluruh siswa akan bersedia datang ke sekolah menggunakan transportasi umum atau fasilitas antar-jemput.", type: "wrong_assumption", feedback: "Harapan, bukan asumsi dasar kebijakan. ❌" },
+                    { text: "Area parkir sekolah sedang dialihfungsikan sepenuhnya untuk penempatan infrastruktur panggung.", type: "wrong_assumption", feedback: "Fakta kondisi lapangan. ❌" }
                 ]
             },
             {
-                sender: "Siska",
-                statement: "Semua yang karirnya melejit di perusahaan global wajib fasih bahasa Inggris. Si Gani bahasa Inggrisnya masih belepotan.",
-                reply_context: "Yah, berarti karir si Gani di perusahaan global nggak mungkin bisa melejit.",
+                sender: "Sie Publikasi",
+                statement: "Kita akan memusatkan promosi pensi di media sosial Instagram dan TikTok. Dengan demikian, target penjualan sebanyak 2.000 tiket pasti akan tercapai dalam waktu singkat.",
                 options: [
-                    { text: "Kesimpulan Maya: PASTI BENAR", type: "logic_correct", feedback: "Tepat! (Modus Tollens). Melejit -> Inggris. Tidak Inggris -> Tidak Melejit. 🧠" },
-                    { text: "Kesimpulan Maya: PASTI SALAH", type: "logic_wrong", feedback: "Salah. Kesimpulan valid. 📉" },
-                    { text: "TIDAK DAPAT DISIMPULKAN", type: "logic_wrong", feedback: "Salah. Syarat wajib tidak terpenuhi. 📉" }
+                    { text: "Target audiens dari acara pensi secara aktif menggunakan media sosial tersebut sebagai sumber informasi utama mengenai hiburan.", type: "correct_assumption", feedback: "Jeli! Tanpa audiens di sana, promosi percuma. 🎯" },
+                    { text: "Biaya iklan di Instagram dan TikTok lebih efektif dibandingkan metode promosi konvensional lainnya.", type: "wrong_assumption", feedback: "Perbandingan biaya, bukan asumsi ketercapaian target. ❌" },
+                    { text: "Konten promosi yang dibuat oleh panitia memiliki kualitas yang pasti akan menarik minat calon penonton.", type: "wrong_assumption", feedback: "Terlalu percaya diri (opini). ❌" },
+                    { text: "Penjualan tiket secara fisik sudah dianggap tidak efektif oleh panitia pensi untuk mencapai target.", type: "wrong_assumption", feedback: "Alasan strategi, bukan asumsi keberhasilan. ❌" }
                 ]
             },
             {
-                sender: "Siska",
-                statement: "Sebagian alumni yang sering makan siang bareng bos itu cepat naik jabatan. Si Feri tiap hari makan siang bareng bosnya lho.",
-                reply_context: "Wah, si Feri pasti sebentar lagi bakal naik jabatan!",
+                sender: "Ketua Pelaksana",
+                statement: "Durasi acara akan diperpanjang hingga pukul 22.00 WIB agar tingkat kepuasan penonton meningkat dan penampilan seluruh pengisi acara dapat maksimal.",
                 options: [
-                    { text: "Kesimpulan Maya: TIDAK DAPAT DISIMPULKAN", type: "logic_correct", feedback: "Pintar! 'Sebagian' tidak menjamin kepastian untuk individu tertentu. 🧠" },
-                    { text: "Kesimpulan Maya: PASTI BENAR", type: "logic_wrong", feedback: "Terlalu optimis. Feri bisa masuk bagian yang tidak naik jabatan. 📉" },
-                    { text: "Kesimpulan Maya: PASTI SALAH", type: "logic_wrong", feedback: "Belum tentu salah juga. 📉" }
+                    { text: "Terdapat korelasi positif antara durasi waktu penyelenggaraan acara dengan tingkat kepuasan pengunjung.", type: "correct_assumption", feedback: "Betul! Asumsinya: makin lama makin puas. 🎯" },
+                    { text: "Pihak otoritas sekolah dan aparat keamanan akan memberikan perizinan operasional hingga larut malam.", type: "wrong_assumption", feedback: "Prasyarat izin, bukan asumsi kepuasan. ❌" },
+                    { text: "Pengisi acara menolak untuk tampil jika durasi waktu yang diberikan hanya terbatas hingga sore hari.", type: "wrong_assumption", feedback: "Alasan teknis artis. ❌" },
+                    { text: "Lampu penerangan di lapangan sekolah memiliki kapasitas yang memadai untuk mendukung acara malam hari.", type: "wrong_assumption", feedback: "Fakta teknis fasilitas. ❌" }
                 ]
             },
             {
-                sender: "Siska",
-                statement: "Semua yang lanjut S2 ke luar negeri itu pasti dapat beasiswa. Si Linda itu sekarang lagi S2 di London.",
-                reply_context: "Pasti Linda berangkat ke sana pakai beasiswa, hebat ya!",
+                sender: "Sie Lingkungan",
+                statement: "Wajib bagi seluruh penyewa gerai makanan untuk menggunakan kemasan ramah lingkungan demi membangun citra positif pensi sebagai acara yang peduli terhadap kelestarian alam.",
                 options: [
-                    { text: "Kesimpulan Maya: PASTI BENAR", type: "logic_correct", feedback: "Valid! (Modus Ponens). S2 LN -> Beasiswa. Linda S2 LN -> Linda Beasiswa. 🧠" },
-                    { text: "Kesimpulan Maya: PASTI SALAH", type: "logic_wrong", feedback: "Salah. 📉" },
-                    { text: "TIDAK DAPAT DISIMPULKAN", type: "logic_wrong", feedback: "Salah. Premis universal 'Semua' menjamin kesimpulan ini. 📉" }
+                    { text: "Persepsi publik mengenai citra positif sebuah acara dipengaruhi secara signifikan oleh penggunaan material ramah lingkungan.", type: "correct_assumption", feedback: "Tepat! Citra positif diasumsikan datang dari kemasan. 🎯" },
+                    { text: "Pengunjung pensi mengutamakan aspek kelestarian lingkungan saat memutuskan untuk membeli makanan.", type: "wrong_assumption", feedback: "Preferensi pembeli, bukan asumsi citra acara. ❌" },
+                    { text: "Masalah sampah plastik merupakan kendala paling krusial dalam penyelenggaraan pensi di tahun-tahun sebelumnya.", type: "wrong_assumption", feedback: "Latar belakang masalah. ❌" },
+                    { text: "Harga penggunaan kemasan ramah lingkungan tidak akan berdampak pada kenaikan harga jual makanan.", type: "wrong_assumption", feedback: "Analisis harga. ❌" }
                 ]
             },
             {
-                sender: "Siska",
-                statement: "Kalau alumni sering posting foto liburan di luar negeri, tandanya dia mau pamer. Si Beni nggak pernah posting foto liburan sama sekali.",
-                reply_context: "Berarti Beni itu orangnya rendah hati dan nggak mau pamer sama sekali.",
+                sender: "Sie Organisasi",
+                statement: "Kami akan melibatkan alumni sebagai relawan keamanan tambahan. Langkah ini dipastikan akan menekan angka keributan antar-penonton karena alumni memiliki wibawa di mata adik kelasnya.",
                 options: [
-                    { text: "Kesimpulan Maya: TIDAK DAPAT DISIMPULKAN", type: "logic_correct", feedback: "Tepat! (Denying the Antecedent). Tidak Posting != Tidak Pamer (bisa pamer cara lain). 🧠" },
-                    { text: "Kesimpulan Maya: PASTI BENAR", type: "logic_wrong", feedback: "Salah. Tidak posting bukan jaminan rendah hati. 📉" },
-                    { text: "Kesimpulan Maya: PASTI SALAH", type: "logic_wrong", feedback: "Belum tentu salah. 📉" }
+                    { text: "Siswa akan menunjukkan kepatuhan terhadap instruksi keamanan yang diberikan oleh pihak alumni.", type: "correct_assumption", feedback: "Benar! Asumsinya wibawa alumni efektif. 🎯" },
+                    { text: "Alumni memiliki ketersediaan waktu luang yang memadai untuk hadir secara fisik di hari pelaksanaan.", type: "wrong_assumption", feedback: "Ketersediaan SDM. ❌" },
+                    { text: "Potensi gangguan keamanan dalam acara pensi murni berasal dari interaksi internal antar-siswa sekolah tersebut.", type: "wrong_assumption", feedback: "Analisis sumber masalah. ❌" },
+                    { text: "Jumlah personil dari aparat kepolisian yang dikerahkan oleh panitia masih berada di bawah angka kebutuhan.", type: "wrong_assumption", feedback: "Alasan penambahan personil. ❌" }
                 ]
             },
             {
-                sender: "Siska",
-                statement: "Semua wirausahawan itu pasti berani ambil risiko. Si Hendi itu orangnya sangat berani ambil risiko.",
-                reply_context: "Oh, berarti si Hendi itu sekarang sudah jadi seorang wirausahawan.",
+                sender: "Sie Perlengkapan",
+                statement: "Penyediaan kursi tribun khusus dan fasilitas VIP akan meningkatkan pendapatan total acara meskipun jumlah kursi yang tersedia terbatas.",
                 options: [
-                    { text: "Kesimpulan Maya: TIDAK DAPAT DISIMPULKAN", type: "logic_correct", feedback: "Cerdas! (Affirming the Consequent). Berani Risiko != Wirausaha (bisa jadi penjudi). 🧠" },
-                    { text: "Kesimpulan Maya: PASTI BENAR", type: "logic_wrong", feedback: "Salah. Logika terbalik. 📉" },
-                    { text: "Kesimpulan Maya: PASTI SALAH", type: "logic_wrong", feedback: "Belum tentu salah. 📉" }
+                    { text: "Terdapat segmen konsumen yang memiliki daya beli lebih tinggi dan bersedia membayar demi fasilitas kenyamanan ekstra.", type: "correct_assumption", feedback: "Cerdas! Ada demand untuk VIP. 🎯" },
+                    { text: "Kursi VIP ditargetkan secara eksklusif hanya untuk tamu undangan khusus dan pejabat daerah setempat.", type: "wrong_assumption", feedback: "Target pasar spesifik. ❌" },
+                    { text: "Biaya investasi pembangunan tribun VIP diproyeksikan lebih rendah dibandingkan estimasi margin keuntungan.", type: "wrong_assumption", feedback: "Analisis profitabilitas. ❌" },
+                    { text: "Kehadiran fasilitas VIP akan meningkatkan prestise acara di mata pengisi acara internasional.", type: "wrong_assumption", feedback: "Dampak sampingan. ❌" }
                 ]
             },
             {
-                sender: "Siska",
-                statement: "Semua alumni yang peduli masa depan pasti punya asuransi kesehatan. Aku (Siska) peduli banget sama masa depan.",
-                reply_context: "Berarti kamu pasti sudah punya asuransi kesehatan dong, Sis.",
+                sender: "Sie Acara",
+                statement: "Penyelenggaraan audisi terbuka bagi band-band lokal untuk tampil sebagai pembuka acara akan menjamin variasi genre musik yang ditampilkan tidak monoton.",
                 options: [
-                    { text: "Kesimpulan Maya: PASTI BENAR", type: "logic_correct", feedback: "Valid! (Modus Ponens). Peduli -> Asuransi. Siska Peduli -> Siska Asuransi. 🧠" },
-                    { text: "Kesimpulan Maya: PASTI SALAH", type: "logic_wrong", feedback: "Salah. 📉" },
-                    { text: "TIDAK DAPAT DISIMPULKAN", type: "logic_wrong", feedback: "Salah. 📉" }
+                    { text: "Peserta audisi dari kalangan band lokal merepresentasikan berbagai latar belakang genre musik yang beragam.", type: "correct_assumption", feedback: "Tepat! Kalau semua band lokal genrenya sama, tetap monoton. 🎯" },
+                    { text: "Penonton pensi memiliki kecenderungan cepat jenuh jika hanya menyaksikan satu kategori genre musik.", type: "wrong_assumption", feedback: "Alasan penonton. ❌" },
+                    { text: "Kualitas musikalitas band lokal sekolah tersebut memiliki standar yang setara dengan artis pengisi acara utama.", type: "wrong_assumption", feedback: "Kualitas musik. ❌" },
+                    { text: "Sistem audisi terbuka merupakan satu-satunya metode efektif untuk menjaring bakat musik di lingkungan sekolah.", type: "wrong_assumption", feedback: "Klaim metode terbaik. ❌" }
                 ]
             },
             {
-                sender: "Siska",
-                statement: "Orang yang hobi modifikasi mobil kalau nggak kaya banget pasti punya banyak hutang. Si Kevin itu mobilnya dimodif terus, padahal dia nggak kaya-kaya banget.",
-                reply_context: "Duh, sudah pasti hutang Kevin menumpuk di mana-mana!",
+                sender: "Sie Keamanan",
+                statement: "Pemasangan CCTV tambahan di setiap sudut area pensi akan menurunkan tingkat kehilangan barang pribadi milik pengunjung secara drastis.",
                 options: [
-                    { text: "Kesimpulan Maya: PASTI BENAR", type: "logic_correct", feedback: "Valid! (Silogisme Disjungtif). Modif -> (Kaya V Hutang). Tidak Kaya -> Hutang. 🧠" },
-                    { text: "Kesimpulan Maya: PASTI SALAH", type: "logic_wrong", feedback: "Salah. 📉" },
-                    { text: "TIDAK DAPAT DISIMPULKAN", type: "logic_wrong", feedback: "Salah. Pilihan cuma dua: Kaya atau Hutang. 📉" }
+                    { text: "Kehadiran sistem pengawasan visual yang terlihat mampu memberikan efek cegah terhadap potensi tindakan kriminal.", type: "correct_assumption", feedback: "Benar! Asumsi efek jera CCTV. 🎯" },
+                    { text: "Pengunjung pensi sering kali menunjukkan perilaku lalai dalam mengawasi barang bawaan pribadi mereka.", type: "wrong_assumption", feedback: "Perilaku pengunjung. ❌" },
+                    { text: "Personil keamanan memiliki kapasitas untuk memonitor seluruh output rekaman CCTV secara simultan.", type: "wrong_assumption", feedback: "Teknis operasional. ❌" },
+                    { text: "Sebagian besar insiden kehilangan barang disebabkan oleh oknum yang berasal dari luar lingkungan sekolah.", type: "wrong_assumption", feedback: "Analisis pelaku. ❌" }
                 ]
             },
             {
-                sender: "Siska",
-                statement: "Sebagian alumni yang baru pulang liburan dari Jepang terlihat lebih bahagia. Si Erna baru saja mendarat dari Tokyo kemarin.",
-                reply_context: "Pantas saja, Erna sekarang pasti lagi bahagia-bahagianya.",
+                sender: "Sie Publikasi",
+                statement: "Bekerja sama dengan lima media massa lokal untuk meliput acara akan menjamin pensi kita menjadi topik pembicaraan hangat di masyarakat luas.",
                 options: [
-                    { text: "Kesimpulan Maya: TIDAK DAPAT DISIMPULKAN", type: "logic_correct", feedback: "Betul! 'Sebagian' tidak menjamin Erna termasuk kelompok yang bahagia. 🧠" },
-                    { text: "Kesimpulan Maya: PASTI BENAR", type: "logic_wrong", feedback: "Terlalu menyimpulkan. Bisa jadi Erna sedih karena liburan usai. 📉" },
-                    { text: "Kesimpulan Maya: PASTI SALAH", type: "logic_wrong", feedback: "Belum tentu salah. 📉" }
+                    { text: "Publikasi melalui media massa lokal memiliki efektivitas yang signifikan dalam membentuk opini masyarakat di wilayah tersebut.", type: "correct_assumption", feedback: "Jeli! Media lokal dianggap berpengaruh. 🎯" },
+                    { text: "Masyarakat umum memiliki atensi yang besar terhadap perkembangan kegiatan kreativitas di tingkat sekolah.", type: "wrong_assumption", feedback: "Minat masyarakat. ❌" },
+                    { text: "Media massa lokal memberikan komitmen untuk tidak memungut biaya operasional peliputan kepada panitia.", type: "wrong_assumption", feedback: "Masalah biaya. ❌" },
+                    { text: "Tolok ukur keberhasilan sebuah acara hanya didasarkan pada seberapa masif acara tersebut dibicarakan publik.", type: "wrong_assumption", feedback: "Definisi sukses. ❌" }
                 ]
             },
             {
-                sender: "Siska",
-                statement: "Semua yang sudah nikah pasti kirim undangan ke grup WA. Si Doni sampai hari ini belum kirim undangan apa-apa di grup.",
-                reply_context: "Berarti fix, si Doni memang belum nikah.",
+                sender: "Sie Pendanaan",
+                statement: "Penjualan merchandise resmi harus dipusatkan di pintu keluar. Strategi ini akan memaksimalkan volume penjualan sesaat sebelum penonton meninggalkan lokasi.",
                 options: [
-                    { text: "Kesimpulan Maya: PASTI BENAR", type: "logic_correct", feedback: "Valid! (Modus Tollens). Nikah -> Undangan. Tidak Undangan -> Tidak Nikah. 🧠" },
-                    { text: "Kesimpulan Maya: PASTI SALAH", type: "logic_wrong", feedback: "Salah. 📉" },
-                    { text: "TIDAK DAPAT DISIMPULKAN", type: "logic_wrong", feedback: "Salah. 📉" }
+                    { text: "Penonton memiliki kecenderungan psikologis untuk membeli produk kenang-kenangan di akhir durasi acara.", type: "correct_assumption", feedback: "Tepat! Psikologi belanja penonton. 🎯" },
+                    { text: "Harga jual merchandise di pintu keluar telah disesuaikan dengan daya beli sisa dari para pengunjung.", type: "wrong_assumption", feedback: "Strategi harga. ❌" },
+                    { text: "Pengunjung tidak memiliki sisa saldo tunai yang cukup saat acara baru saja dimulai.", type: "wrong_assumption", feedback: "Kondisi keuangan. ❌" },
+                    { text: "Tata letak pintu masuk tidak memungkinkan untuk penempatan instalasi gerai merchandise resmi.", type: "wrong_assumption", feedback: "Kendala teknis lokasi. ❌" }
                 ]
             },
             {
-                sender: "Siska",
-                statement: "Setiap alumni yang menjabat sebagai CEO pasti punya tanggung jawab besar. Si Rudi baru saja diangkat jadi CEO startup fintech.",
-                reply_context: "Berarti Rudi sekarang punya tanggung jawab yang besar di pundaknya.",
+                sender: "Sie Umum",
+                statement: "Penyediaan fasilitas pengisian daya baterai ponsel secara gratis akan membuat penonton lebih lama bertahan di area gerai makanan.",
                 options: [
-                    { text: "Kesimpulan Maya: PASTI BENAR", type: "logic_correct", feedback: "Valid! (Modus Ponens). CEO -> Tanggung Jawab. Rudi CEO -> Rudi Tanggung Jawab. 🧠" },
-                    { text: "Kesimpulan Maya: PASTI SALAH", type: "logic_wrong", feedback: "Salah. 📉" },
-                    { text: "TIDAK DAPAT DISIMPULKAN", type: "logic_wrong", feedback: "Salah. 📉" }
+                    { text: "Keterbatasan daya baterai ponsel merupakan kendala utama yang menghalangi pengunjung untuk tetap berada di lokasi.", type: "correct_assumption", feedback: "Benar! Baterai habis = pulang. 🎯" },
+                    { text: "Penggunaan perangkat ponsel oleh pengunjung untuk merekam acara menyebabkan konsumsi baterai meningkat cepat.", type: "wrong_assumption", feedback: "Penyebab baterai habis. ❌" },
+                    { text: "Penonton akan segera meninggalkan area acara apabila perangkat komunikasi mereka kehabisan daya baterai.", type: "wrong_assumption", feedback: "Konsekuensi. ❌" },
+                    { text: "Penonton akan cenderung melakukan transaksi makanan tambahan saat menunggu proses pengisian daya baterai.", type: "wrong_assumption", feedback: "Dampak ekonomi tambahan. ❌" }
+                ]
+            },
+            {
+                sender: "Ketua Panitia",
+                statement: "Penjualan tiket harus dibatasi maksimal sebanyak 3.000 lembar demi menjamin standar kenyamanan dan keselamatan pengunjung di dalam area sekolah.",
+                options: [
+                    { text: "Kapasitas daya tampung area sekolah memiliki batas maksimal tertentu untuk menunjang keamanan massa.", type: "correct_assumption", feedback: "Tepat! Batas aman area sekolah. 🎯" },
+                    { text: "Proyeksi permintaan terhadap tiket acara diperkirakan tidak akan melampaui angka 3.000 unit.", type: "wrong_assumption", feedback: "Prediksi permintaan. ❌" },
+                    { text: "Risiko kericuhan massa hanya akan terjadi apabila jumlah individu di dalam area melebihi ambang batas tertentu.", type: "wrong_assumption", feedback: "Kondisi risiko. ❌" },
+                    { text: "Otoritas kepolisian menetapkan regulasi yang membatasi jumlah kerumunan di bawah angka 3.500 orang.", type: "wrong_assumption", feedback: "Regulasi eksternal. ❌" }
+                ]
+            },
+            {
+                sender: "Sie Acara",
+                statement: "Penggunaan siswa yang populer di sekolah sebagai pembawa acara akan menjamin interaksi di atas panggung menjadi lebih dinamis dan akrab.",
+                options: [
+                    { text: "Audiens akan memberikan respons yang lebih positif terhadap komunikasi yang dilakukan oleh figur yang sudah dikenal.", type: "correct_assumption", feedback: "Cerdas! Popularitas = Respon positif. 🎯" },
+                    { text: "Siswa dengan popularitas tinggi secara otomatis memiliki kompetensi teknis dalam komunikasi publik.", type: "wrong_assumption", feedback: "Korelasi kemampuan. ❌" },
+                    { text: "Biaya jasa pembawa acara profesional dari luar sekolah tidak terjangkau oleh anggaran panitia.", type: "wrong_assumption", feedback: "Kendala biaya. ❌" },
+                    { text: "Status popularitas seorang siswa berbanding lurus dengan tingkat keaktifannya dalam organisasi seni.", type: "wrong_assumption", feedback: "Fakta popularitas. ❌" }
+                ]
+            },
+            {
+                sender: "Sie Pendanaan",
+                statement: "Bekerja sama dengan satu merek minuman energi sebagai sponsor tunggal akan memberikan kontribusi profitabilitas yang signifikan bagi panitia.",
+                options: [
+                    { text: "Pihak perusahaan sponsor bersedia memberikan nilai kompensasi finansial yang tinggi untuk hak eksklusivitas merek.", type: "correct_assumption", feedback: "Betul! Sponsor mau bayar mahal demi eksklusif. 🎯" },
+                    { text: "Pengunjung pensi memiliki preferensi konsumsi minuman energi di atas kategori minuman ringan lainnya.", type: "wrong_assumption", feedback: "Selera konsumen. ❌" },
+                    { text: "Konsumsi minuman energi merupakan kebutuhan fungsional bagi penonton yang berdiri dalam durasi lama.", type: "wrong_assumption", feedback: "Fungsi produk. ❌" },
+                    { text: "Perjanjian kontrak melarang panitia untuk memasarkan produk dari kompetitor langsung selama acara.", type: "wrong_assumption", feedback: "Syarat kontrak. ❌" }
+                ]
+            },
+            {
+                sender: "Sie Lingkungan",
+                statement: "Pemasangan tempat sampah dengan desain visual yang unik akan meningkatkan kepatuhan pengunjung untuk membuang sampah pada tempatnya.",
+                options: [
+                    { text: "Stimulus visual yang menarik dapat secara efektif mempengaruhi perilaku pengunjung dalam menjaga kebersihan.", type: "correct_assumption", feedback: "Tepat! Desain -> Perilaku. 🎯" },
+                    { text: "Rendahnya kesadaran membuang sampah disebabkan oleh bentuk tempat sampah konvensional yang tidak menarik perhatian.", type: "wrong_assumption", feedback: "Analisis masalah. ❌" },
+                    { text: "Rasio jumlah tempat sampah berbanding luas area di lapangan sekolah saat ini masih berada di bawah standar.", type: "wrong_assumption", feedback: "Fakta fasilitas. ❌" },
+                    { text: "Demografi pengunjung pensi didominasi oleh kelompok usia yang sangat mengapresiasi unsur estetika visual.", type: "wrong_assumption", feedback: "Profil pengunjung. ❌" }
+                ]
+            },
+            {
+                sender: "Sie Keamanan",
+                statement: "Penyampaian pengumuman berkala mengenai kewaspadaan barang bawaan akan meniadakan insiden kriminalitas pencopetan di seluruh area acara.",
+                options: [
+                    { text: "Insiden kriminalitas dalam acara tersebut sepenuhnya disebabkan oleh kelalaian pengunjung dalam menjaga privasi barang.", type: "correct_assumption", feedback: "Benar! Asumsinya cuma karena lalai (bukan niat jahat). 🎯" },
+                    { text: "Pelaku tindakan kriminal akan membatalkan niatnya ketika mendengar imbauan resmi dari pihak keamanan.", type: "wrong_assumption", feedback: "Reaksi pelaku. ❌" },
+                    { text: "Seluruh lapisan pengunjung memiliki tingkat kepatuhan penuh terhadap instruksi yang diberikan melalui sistem suara.", type: "wrong_assumption", feedback: "Tingkat kepatuhan. ❌" },
+                    { text: "Intensitas suara dari panggung utama tidak akan menginterfensi kejernihan suara pengumuman keamanan.", type: "wrong_assumption", feedback: "Teknis audio. ❌" }
                 ]
             }
         ];
 
         // --- GAME LOGIC ---
         
-        let currentGameMode = 'rt'; // 'rt', 'keluarga', or 'alumni'
+        let currentGameMode = 'rt'; // 'rt', 'keluarga', 'alumni', 'asumsi'
         let gameQuestions = [];
         let currentLevel = 0;
         let score = 0; 
@@ -816,20 +888,36 @@
                         </ul>
                     </div>
                 `;
-            } else {
-                // ALUMNI
+            } else if (mode === 'alumni') {
                 titleEl.innerText = "Misi: Si Paling Logis";
                 titleEl.className = "text-lg font-bold text-purple-600";
                 contentEl.innerHTML = `
                     <p class="text-gray-700 leading-relaxed mb-4 text-sm md:text-base">
-                        Siska sedang menyebar gosip di grup alumni dengan logika yang sering melompat-lompat.
+                        Siska sedang menyebar gosip di grup alumni. Kadang kesimpulannya suka ngawur.
                     </p>
                     <div class="bg-purple-50 p-4 rounded-lg mb-4 text-sm border-l-4 border-purple-500">
                         <p class="font-semibold text-gray-800 mb-1 italic">Tugas Anda:</p>
                         <ul class="list-disc ml-4 space-y-1 text-gray-600">
                             <li>Analisis premis dan kesimpulan Siska.</li>
-                            <li>Tentukan apakah kesimpulannya: <br><b>Pasti Benar</b>, <b>Pasti Salah</b>, atau <b>Tidak Dapat Disimpulkan</b>.</li>
+                            <li>Tentukan validitas kesimpulannya: <br><b>Pasti Benar</b>, <b>Pasti Salah</b>, atau <b>Tidak Dapat Disimpulkan</b>.</li>
                             <li>Target: Jadilah Alumni Paling Logis!</li>
+                        </ul>
+                    </div>
+                `;
+            } else {
+                // ASUMSI
+                titleEl.innerText = "Misi: Panitia Kritis";
+                titleEl.className = "text-lg font-bold text-orange-600";
+                contentEl.innerHTML = `
+                    <p class="text-gray-700 leading-relaxed mb-4 text-sm md:text-base">
+                        Ketua Panitia punya banyak ide proker, tapi sering lupa sama kenyataan di lapangan.
+                    </p>
+                    <div class="bg-orange-50 p-4 rounded-lg mb-4 text-sm border-l-4 border-orange-500">
+                        <p class="font-semibold text-gray-800 mb-1 italic">Tugas Anda:</p>
+                        <ul class="list-disc ml-4 space-y-1 text-gray-600">
+                            <li>Analisis rencana Ketua Panitia.</li>
+                            <li>Cari <span class="font-bold text-orange-600">ASUMSI DASAR</span> yang membuat rencananya valid.</li>
+                            <li>Ingat: Asumsi adalah hal yang "dianggap benar" oleh pembicara.</li>
                         </ul>
                     </div>
                 `;
@@ -880,8 +968,7 @@
                 intro.innerText = "Misi: Cari Muka Demi THR!";
                 intro.className = "bg-green-100/90 text-green-800 text-xs p-2 rounded-lg self-center px-4 mb-2 shadow-sm font-semibold text-center border border-green-200 shrink-0";
                 hint.innerText = "Pilih Balasan (Target: JANGAN Memperlemah)";
-            } else {
-                // ALUMNI
+            } else if (currentGameMode === 'alumni') {
                 const shuffled = shuffleArray([...bankSoalAlumni]);
                 gameQuestions = shuffled.slice(0, totalQuestionsPerSession);
 
@@ -893,6 +980,19 @@
                 intro.innerText = "Misi: Uji Validitas Kesimpulan Siska!";
                 intro.className = "bg-purple-100/90 text-purple-800 text-xs p-2 rounded-lg self-center px-4 mb-2 shadow-sm font-semibold text-center border border-purple-200 shrink-0";
                 hint.innerText = "Analisis Kesimpulan (Valid/Invalid)";
+            } else {
+                // ASUMSI
+                const shuffled = shuffleArray([...bankSoalAsumsi]);
+                gameQuestions = shuffled.slice(0, totalQuestionsPerSession);
+
+                avatar.src = "https://api.dicebear.com/7.x/avataaars/svg?seed=Felix&backgroundColor=ffedd5";
+                title.innerText = "Panitia PENSI 2024";
+                members.innerText = "Beto (Ketua), Sie Acara, Anda...";
+                scoreLabel.innerText = "🎯 KRITIS";
+                bar.className = "progress-bar h-full bg-gradient-to-r from-yellow-400 to-orange-600";
+                intro.innerText = "Misi: Cari Asumsi Dasar Rencana!";
+                intro.className = "bg-orange-100/90 text-orange-800 text-xs p-2 rounded-lg self-center px-4 mb-2 shadow-sm font-semibold text-center border border-orange-200 shrink-0";
+                hint.innerText = "Pilih Pernyataan Asumsi";
             }
 
             updateScoreBar();
@@ -920,7 +1020,8 @@
             let senderName = 'Sender';
             if (currentGameMode === 'rt') senderName = 'Ibu RT';
             else if (currentGameMode === 'keluarga') senderName = gameQuestions[currentLevel].sender;
-            else senderName = 'Siska';
+            else if (currentGameMode === 'alumni') senderName = 'Siska';
+            else senderName = gameQuestions[currentLevel].sender; // Asumsi
             
             indicator.innerText = `${senderName} sedang mengetik...`;
             indicator.classList.remove('hidden');
@@ -931,11 +1032,11 @@
                 // Show Question Logic
                 addMessage(gameQuestions[currentLevel].statement, 'left', senderName);
                 
-                // For Alumni mode, show the conclusion as a second bubble immediately
+                // For Alumni mode, Siska sends the conclusion as second bubble (REVERTED)
                 if (currentGameMode === 'alumni') {
                     setTimeout(() => {
                         const conclusion = gameQuestions[currentLevel].reply_context;
-                        addMessage(conclusion, 'left', 'Maya');
+                        addMessage(conclusion, 'left', senderName);
                         showOptions();
                     }, 800);
                 } else {
@@ -969,7 +1070,7 @@
             
             let currentOptions = [...gameQuestions[currentLevel].options];
             if (currentGameMode !== 'alumni') {
-                currentOptions = shuffleArray(currentOptions); // Alumni options usually fixed order (Benar/Salah/Tidak) but shuffle is okay too
+                currentOptions = shuffleArray(currentOptions); 
             }
 
             currentOptions.forEach((opt) => {
@@ -993,9 +1094,12 @@
                 } else if (currentGameMode === 'keluarga') {
                     if (option.type === 'weaken') score = Math.max(0, score - 20); 
                     else score += 20; 
+                } else if (currentGameMode === 'alumni') {
+                    if (option.type === 'logic_correct') score += 20; 
+                    else score = Math.max(0, score - 10);
                 } else {
-                    // ALUMNI
-                    if (option.type === 'logic_correct') score += 20; // 5 soal x 20 = 100
+                    // ASUMSI
+                    if (option.type === 'correct_assumption') score += 20;
                     else score = Math.max(0, score - 10);
                 }
 
@@ -1048,8 +1152,7 @@
                     title.innerText = "DICORET DARI KK";
                     desc.innerText = `Skor THR hanya ${score}%. Anda terlalu banyak membantah Om dan Tante. Lebaran tahun ini Anda cuma dapat rengginang.`;
                 }
-            } else {
-                // ALUMNI
+            } else if (currentGameMode === 'alumni') {
                 if (score >= 80) {
                     icon.innerText = "🎓";
                     title.innerText = "SI PALING LOGIS";
@@ -1058,6 +1161,17 @@
                     icon.innerText = "🤪";
                     title.innerText = "KORBAN GOSIP";
                     desc.innerText = `Skor Logika hanya ${score}%. Anda mudah termakan kesimpulan yang salah. Ayo belajar silogisme lagi!`;
+                }
+            } else {
+                // ASUMSI
+                if (score >= 80) {
+                    icon.innerText = "🕵️";
+                    title.innerText = "DETEKTIF ASUMSI";
+                    desc.innerText = `KEREN! Anda berhasil membongkar semua asumsi tersembunyi di balik rencana Ketua Panitia. Proker jadi lebih realistis!`;
+                } else {
+                    icon.innerText = "🌀";
+                    title.innerText = "GAGAL PAHAM";
+                    desc.innerText = `Skor Kritis hanya ${score}%. Anda masih sulit membedakan antara fakta, opini, dan asumsi dasar. Coba lagi!`;
                 }
             }
         }
