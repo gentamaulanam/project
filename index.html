@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Misi Kena Kick & Kejar THR</title>
+    <title>Misi Kena Kick, Kejar THR & Logika Alumni</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
@@ -77,15 +77,17 @@
                 </div>
             </div>
 
-            <!-- Grup Simulasi Lain -->
-            <div class="flex items-center p-4 opacity-60 grayscale border-b border-gray-100">
-                <div class="w-14 h-14 bg-green-100 rounded-full flex-shrink-0 mr-4 flex items-center justify-center text-green-500 font-bold">A</div>
+            <!-- Grup Baru (Alumni) -->
+            <div onclick="showBriefing('alumni')" class="flex items-center p-4 hover:bg-gray-100 cursor-pointer border-b border-gray-100 transition active:bg-gray-200">
+                <div class="w-14 h-14 bg-purple-100 rounded-full flex-shrink-0 mr-4 flex items-center justify-center border overflow-hidden">
+                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Siska&backgroundColor=e9d5ff" alt="Alumni" class="w-full h-full">
+                </div>
                 <div class="flex-grow min-w-0">
                     <div class="flex justify-between">
-                        <h3 class="font-bold text-gray-800">Alumni Pejuang UTBK</h3>
-                        <span class="text-xs text-gray-400">Kemarin</span>
+                        <h3 class="font-bold text-gray-800">Alumni SMA 1 (Julid)</h3>
+                        <span class="text-xs text-green-500 whitespace-nowrap ml-2">09:15</span>
                     </div>
-                    <p class="text-sm text-gray-500 truncate">Budi: Udah dapet pengumuman belum?</p>
+                    <p class="text-sm text-gray-500 truncate">Siska: Guys, si Roni fix sukses!</p>
                 </div>
             </div>
         </div>
@@ -120,7 +122,7 @@
                 <h1 id="game-title" class="font-bold text-sm truncate">Nama Grup</h1>
                 <p id="game-members" class="text-[10px] text-green-200 truncate">Anggota...</p>
             </div>
-            <!-- BAR SCORE (Dinamis: Kekesalan / THR) -->
+            <!-- BAR SCORE (Dinamis: Kekesalan / THR / Logika) -->
             <div class="flex flex-col items-end w-[35%] max-w-[150px] shrink-0">
                 <div class="flex justify-between w-full mb-1">
                     <span id="score-label" class="text-[9px] md:text-[10px] uppercase font-bold text-white tracking-widest truncate mr-1">SCORE</span>
@@ -347,8 +349,6 @@
 
         // --- DATA SOAL KELUARGA (20 SOAL) ---
         // Misi: JANGAN Memperlemah (Strengthen/Neutral)
-        // Correct Answer (THR): type 'strengthen'
-        // Wrong Answer (No THR): type 'weaken'
         const bankSoalKeluarga = [
             {
                 sender: "Tante",
@@ -552,12 +552,219 @@
             }
         ];
 
+        // --- DATA SOAL ALUMNI (20 SOAL) ---
+        // Misi: Tentukan Kesimpulan (Logic)
+        // type: 'logic_correct' (Score +)
+        // type: 'logic_wrong' (Score -)
+        const bankSoalAlumni = [
+            {
+                sender: "Siska",
+                statement: "Eh May, semua alumni yang punya startup sendiri itu sudah pasti kaya raya. Nah, si Eko itu kan baru saja rilis startup 'Sayur-Go'.",
+                reply_context: "Oh, berarti fix banget, si Eko sekarang sudah kaya raya!",
+                options: [
+                    { text: "Kesimpulan Maya: PASTI BENAR", type: "logic_correct", feedback: "Betul! (Modus Ponens). Jika P -> Q, dan P terjadi, maka Q pasti terjadi. 🧠" },
+                    { text: "Kesimpulan Maya: PASTI SALAH", type: "logic_wrong", feedback: "Salah. Secara logika deduktif, kesimpulan Maya valid berdasarkan premisnya. 📉" },
+                    { text: "TIDAK DAPAT DISIMPULKAN", type: "logic_wrong", feedback: "Salah. Premis dan fakta sudah cukup untuk menarik kesimpulan pasti. 📉" }
+                ]
+            },
+            {
+                sender: "Siska",
+                statement: "Tahu nggak, kalau sudah jadi Manajer di perusahaan multinasional, jadwalnya pasti padat dan sering lembur. Si Andi itu aku lihat sering banget lembur sampai malam.",
+                reply_context: "Wah, pasti si Andi sekarang sudah naik jabatan jadi Manajer itu!",
+                options: [
+                    { text: "Kesimpulan Maya: TIDAK DAPAT DISIMPULKAN", type: "logic_correct", feedback: "Cerdas! (Affirming the Consequent). Lembur belum tentu Manajer (bisa saja staf biasa). 🧠" },
+                    { text: "Kesimpulan Maya: PASTI BENAR", type: "logic_wrong", feedback: "Jebakan! Premisnya 'Manajer -> Lembur', bukan sebaliknya. 📉" },
+                    { text: "Kesimpulan Maya: PASTI SALAH", type: "logic_wrong", feedback: "Belum tentu salah juga, mungkin saja dia Manajer. Jadi 'Tidak Dapat Disimpulkan'. 📉" }
+                ]
+            },
+            {
+                sender: "Siska",
+                statement: "Peraturannya jelas May, semua alumni yang datang ke reuni tahun ini wajib membawa pasangan. Tapi si Deni tadi aku lihat datang sendirian saja di lokasi.",
+                reply_context: "Lho, berarti si Deni sebenarnya tidak masuk dalam daftar peserta acara reuni kita hari ini.",
+                options: [
+                    { text: "Kesimpulan Maya: PASTI BENAR", type: "logic_correct", feedback: "Tepat! (Modus Tollens). Peserta -> Bawa Pasangan. Tidak Bawa -> Bukan Peserta (ilegal). 🧠" },
+                    { text: "Kesimpulan Maya: PASTI SALAH", type: "logic_wrong", feedback: "Salah. Logika Maya valid kok. 📉" },
+                    { text: "TIDAK DAPAT DISIMPULKAN", type: "logic_wrong", feedback: "Salah. Informasi sudah lengkap untuk menyimpulkan. 📉" }
+                ]
+            },
+            {
+                sender: "Siska",
+                statement: "Aku dengar sebagian alumni yang ambil sertifikasi 'Project Management' sekarang sudah bekerja di luar negeri. Si Maya (kamu) kan kemarin baru lulus sertifikasi itu.",
+                reply_context: "Iya sih, berarti aku pasti bakal kerja di luar negeri juga dong!",
+                options: [
+                    { text: "Kesimpulan Maya: TIDAK DAPAT DISIMPULKAN", type: "logic_correct", feedback: "Pintar! 'Sebagian' artinya tidak semua. Maya bisa masuk golongan yang ke LN atau tidak. 🧠" },
+                    { text: "Kesimpulan Maya: PASTI BENAR", type: "logic_wrong", feedback: "Sotoy! Kata 'Sebagian' tidak menjamin Maya termasuk di dalamnya. 📉" },
+                    { text: "Kesimpulan Maya: PASTI SALAH", type: "logic_wrong", feedback: "Belum tentu salah, mungkin saja dia ke LN. Tapi tidak 'Pasti'. 📉" }
+                ]
+            },
+            {
+                sender: "Siska",
+                statement: "Nggak ada alumni angkatan kita yang sukses tapi nggak punya mobil mewah. Liat deh si Budi, sampai sekarang mobilnya masih motor butut.",
+                reply_context: "Kasihan ya, berarti si Budi memang belum sukses hidupnya.",
+                options: [
+                    { text: "Kesimpulan Maya: PASTI BENAR", type: "logic_correct", feedback: "Logis! (Modus Tollens). Sukses -> Mobil Mewah. Tidak Mobil Mewah -> Tidak Sukses. 🧠" },
+                    { text: "Kesimpulan Maya: PASTI SALAH", type: "logic_wrong", feedback: "Salah. Kesimpulannya valid secara logika (meskipun premisnya kejam). 📉" },
+                    { text: "TIDAK DAPAT DISIMPULKAN", type: "logic_wrong", feedback: "Salah. Premisnya jelas 'Tidak ada sukses tanpa mobil mewah'. 📉" }
+                ]
+            },
+            {
+                sender: "Siska",
+                statement: "Anak lulusan Sastra kalau mau sukses itu harus jadi penulis. Si Rina itu kan lulusan Sastra, tapi dia sekarang sukses banget jadi pengusaha kuliner.",
+                reply_context: "Berarti pengusaha kuliner itu sebenarnya sama saja dengan penulis bagi anak Sastra.",
+                options: [
+                    { text: "Kesimpulan Maya: PASTI SALAH", type: "logic_correct", feedback: "Betul! Premisnya 'Sastra Sukses -> Penulis'. Faktanya Rina Sastra, Sukses, tapi Pengusaha. Ini kontradiksi, bukan ekuivalensi. 🧠" },
+                    { text: "Kesimpulan Maya: PASTI BENAR", type: "logic_wrong", feedback: "Salah. Pengusaha Kuliner != Penulis. 📉" },
+                    { text: "TIDAK DAPAT DISIMPULKAN", type: "logic_wrong", feedback: "Salah. Kesimpulannya jelas salah karena menyamakan dua profesi berbeda. 📉" }
+                ]
+            },
+            {
+                sender: "Siska",
+                statement: "Semua alumni yang rajin ikut lari maraton badannya pasti bugar. Si Tono itu badannya nggak bugar sama sekali, sering sakit-sakitan.",
+                reply_context: "Jelas banget, Tono pasti nggak pernah ikut lari maraton selama ini.",
+                options: [
+                    { text: "Kesimpulan Maya: PASTI BENAR", type: "logic_correct", feedback: "Tepat! (Modus Tollens). Maraton -> Bugar. Tidak Bugar -> Tidak Maraton. 🧠" },
+                    { text: "Kesimpulan Maya: PASTI SALAH", type: "logic_wrong", feedback: "Salah. Kesimpulannya valid. 📉" },
+                    { text: "TIDAK DAPAT DISIMPULKAN", type: "logic_wrong", feedback: "Salah. Data cukup. 📉" }
+                ]
+            },
+            {
+                sender: "Siska",
+                statement: "Beberapa alumni yang hobi koleksi jam tangan mewah biasanya punya tabungan miliaran. Si Joko itu hobinya koleksi jam tangan mewah lho.",
+                reply_context: "Wah, Joko pasti punya tabungan miliaran itu di bank!",
+                options: [
+                    { text: "Kesimpulan Maya: TIDAK DAPAT DISIMPULKAN", type: "logic_correct", feedback: "Cerdas! 'Beberapa' tidak menjamin semua. Joko mungkin hobi tapi tabungannya biasa saja. 🧠" },
+                    { text: "Kesimpulan Maya: PASTI BENAR", type: "logic_wrong", feedback: "Salah. Kata 'Beberapa' membuat kesimpulan 'Pasti' menjadi tidak valid. 📉" },
+                    { text: "Kesimpulan Maya: PASTI SALAH", type: "logic_wrong", feedback: "Belum tentu salah juga. 📉" }
+                ]
+            },
+            {
+                sender: "Siska",
+                statement: "Siapa saja yang mengerti investasi saham pasti paham cara baca laporan keuangan. Si Dedi itu jago banget main saham.",
+                reply_context: "Berarti Dedi pasti paham cara baca laporan keuangan perusahaan.",
+                options: [
+                    { text: "Kesimpulan Maya: PASTI BENAR", type: "logic_correct", feedback: "Valid! (Modus Ponens). Mengerti Saham -> Paham Laporan. Dedi Mengerti -> Dedi Paham. 🧠" },
+                    { text: "Kesimpulan Maya: PASTI SALAH", type: "logic_wrong", feedback: "Salah. Logikanya lurus. 📉" },
+                    { text: "TIDAK DAPAT DISIMPULKAN", type: "logic_wrong", feedback: "Salah. Premis universal mendukung kesimpulan ini. 📉" }
+                ]
+            },
+            {
+                sender: "Siska",
+                statement: "Kalau orang tinggal di apartemen daerah SCBD, gaya hidupnya pasti hedon. Si Citra itu gaya hidupnya hedon banget sekarang.",
+                reply_context: "Fix, si Citra sekarang pasti sudah pindah tinggal di apartemen SCBD.",
+                options: [
+                    { text: "Kesimpulan Maya: TIDAK DAPAT DISIMPULKAN", type: "logic_correct", feedback: "Benar! (Affirming the Consequent). Hedon tidak harus tinggal di SCBD. 🧠" },
+                    { text: "Kesimpulan Maya: PASTI BENAR", type: "logic_wrong", feedback: "Salah. Premisnya terbalik. 📉" },
+                    { text: "Kesimpulan Maya: PASTI SALAH", type: "logic_wrong", feedback: "Belum tentu salah, mungkin saja dia tinggal di sana. 📉" }
+                ]
+            },
+            {
+                sender: "Siska",
+                statement: "Semua yang karirnya melejit di perusahaan global wajib fasih bahasa Inggris. Si Gani bahasa Inggrisnya masih belepotan.",
+                reply_context: "Yah, berarti karir si Gani di perusahaan global nggak mungkin bisa melejit.",
+                options: [
+                    { text: "Kesimpulan Maya: PASTI BENAR", type: "logic_correct", feedback: "Tepat! (Modus Tollens). Melejit -> Inggris. Tidak Inggris -> Tidak Melejit. 🧠" },
+                    { text: "Kesimpulan Maya: PASTI SALAH", type: "logic_wrong", feedback: "Salah. Kesimpulan valid. 📉" },
+                    { text: "TIDAK DAPAT DISIMPULKAN", type: "logic_wrong", feedback: "Salah. Syarat wajib tidak terpenuhi. 📉" }
+                ]
+            },
+            {
+                sender: "Siska",
+                statement: "Sebagian alumni yang sering makan siang bareng bos itu cepat naik jabatan. Si Feri tiap hari makan siang bareng bosnya lho.",
+                reply_context: "Wah, si Feri pasti sebentar lagi bakal naik jabatan!",
+                options: [
+                    { text: "Kesimpulan Maya: TIDAK DAPAT DISIMPULKAN", type: "logic_correct", feedback: "Pintar! 'Sebagian' tidak menjamin kepastian untuk individu tertentu. 🧠" },
+                    { text: "Kesimpulan Maya: PASTI BENAR", type: "logic_wrong", feedback: "Terlalu optimis. Feri bisa masuk bagian yang tidak naik jabatan. 📉" },
+                    { text: "Kesimpulan Maya: PASTI SALAH", type: "logic_wrong", feedback: "Belum tentu salah juga. 📉" }
+                ]
+            },
+            {
+                sender: "Siska",
+                statement: "Semua yang lanjut S2 ke luar negeri itu pasti dapat beasiswa. Si Linda itu sekarang lagi S2 di London.",
+                reply_context: "Pasti Linda berangkat ke sana pakai beasiswa, hebat ya!",
+                options: [
+                    { text: "Kesimpulan Maya: PASTI BENAR", type: "logic_correct", feedback: "Valid! (Modus Ponens). S2 LN -> Beasiswa. Linda S2 LN -> Linda Beasiswa. 🧠" },
+                    { text: "Kesimpulan Maya: PASTI SALAH", type: "logic_wrong", feedback: "Salah. 📉" },
+                    { text: "TIDAK DAPAT DISIMPULKAN", type: "logic_wrong", feedback: "Salah. Premis universal 'Semua' menjamin kesimpulan ini. 📉" }
+                ]
+            },
+            {
+                sender: "Siska",
+                statement: "Kalau alumni sering posting foto liburan di luar negeri, tandanya dia mau pamer. Si Beni nggak pernah posting foto liburan sama sekali.",
+                reply_context: "Berarti Beni itu orangnya rendah hati dan nggak mau pamer sama sekali.",
+                options: [
+                    { text: "Kesimpulan Maya: TIDAK DAPAT DISIMPULKAN", type: "logic_correct", feedback: "Tepat! (Denying the Antecedent). Tidak Posting != Tidak Pamer (bisa pamer cara lain). 🧠" },
+                    { text: "Kesimpulan Maya: PASTI BENAR", type: "logic_wrong", feedback: "Salah. Tidak posting bukan jaminan rendah hati. 📉" },
+                    { text: "Kesimpulan Maya: PASTI SALAH", type: "logic_wrong", feedback: "Belum tentu salah. 📉" }
+                ]
+            },
+            {
+                sender: "Siska",
+                statement: "Semua wirausahawan itu pasti berani ambil risiko. Si Hendi itu orangnya sangat berani ambil risiko.",
+                reply_context: "Oh, berarti si Hendi itu sekarang sudah jadi seorang wirausahawan.",
+                options: [
+                    { text: "Kesimpulan Maya: TIDAK DAPAT DISIMPULKAN", type: "logic_correct", feedback: "Cerdas! (Affirming the Consequent). Berani Risiko != Wirausaha (bisa jadi penjudi). 🧠" },
+                    { text: "Kesimpulan Maya: PASTI BENAR", type: "logic_wrong", feedback: "Salah. Logika terbalik. 📉" },
+                    { text: "Kesimpulan Maya: PASTI SALAH", type: "logic_wrong", feedback: "Belum tentu salah. 📉" }
+                ]
+            },
+            {
+                sender: "Siska",
+                statement: "Semua alumni yang peduli masa depan pasti punya asuransi kesehatan. Aku (Siska) peduli banget sama masa depan.",
+                reply_context: "Berarti kamu pasti sudah punya asuransi kesehatan dong, Sis.",
+                options: [
+                    { text: "Kesimpulan Maya: PASTI BENAR", type: "logic_correct", feedback: "Valid! (Modus Ponens). Peduli -> Asuransi. Siska Peduli -> Siska Asuransi. 🧠" },
+                    { text: "Kesimpulan Maya: PASTI SALAH", type: "logic_wrong", feedback: "Salah. 📉" },
+                    { text: "TIDAK DAPAT DISIMPULKAN", type: "logic_wrong", feedback: "Salah. 📉" }
+                ]
+            },
+            {
+                sender: "Siska",
+                statement: "Orang yang hobi modifikasi mobil kalau nggak kaya banget pasti punya banyak hutang. Si Kevin itu mobilnya dimodif terus, padahal dia nggak kaya-kaya banget.",
+                reply_context: "Duh, sudah pasti hutang Kevin menumpuk di mana-mana!",
+                options: [
+                    { text: "Kesimpulan Maya: PASTI BENAR", type: "logic_correct", feedback: "Valid! (Silogisme Disjungtif). Modif -> (Kaya V Hutang). Tidak Kaya -> Hutang. 🧠" },
+                    { text: "Kesimpulan Maya: PASTI SALAH", type: "logic_wrong", feedback: "Salah. 📉" },
+                    { text: "TIDAK DAPAT DISIMPULKAN", type: "logic_wrong", feedback: "Salah. Pilihan cuma dua: Kaya atau Hutang. 📉" }
+                ]
+            },
+            {
+                sender: "Siska",
+                statement: "Sebagian alumni yang baru pulang liburan dari Jepang terlihat lebih bahagia. Si Erna baru saja mendarat dari Tokyo kemarin.",
+                reply_context: "Pantas saja, Erna sekarang pasti lagi bahagia-bahagianya.",
+                options: [
+                    { text: "Kesimpulan Maya: TIDAK DAPAT DISIMPULKAN", type: "logic_correct", feedback: "Betul! 'Sebagian' tidak menjamin Erna termasuk kelompok yang bahagia. 🧠" },
+                    { text: "Kesimpulan Maya: PASTI BENAR", type: "logic_wrong", feedback: "Terlalu menyimpulkan. Bisa jadi Erna sedih karena liburan usai. 📉" },
+                    { text: "Kesimpulan Maya: PASTI SALAH", type: "logic_wrong", feedback: "Belum tentu salah. 📉" }
+                ]
+            },
+            {
+                sender: "Siska",
+                statement: "Semua yang sudah nikah pasti kirim undangan ke grup WA. Si Doni sampai hari ini belum kirim undangan apa-apa di grup.",
+                reply_context: "Berarti fix, si Doni memang belum nikah.",
+                options: [
+                    { text: "Kesimpulan Maya: PASTI BENAR", type: "logic_correct", feedback: "Valid! (Modus Tollens). Nikah -> Undangan. Tidak Undangan -> Tidak Nikah. 🧠" },
+                    { text: "Kesimpulan Maya: PASTI SALAH", type: "logic_wrong", feedback: "Salah. 📉" },
+                    { text: "TIDAK DAPAT DISIMPULKAN", type: "logic_wrong", feedback: "Salah. 📉" }
+                ]
+            },
+            {
+                sender: "Siska",
+                statement: "Setiap alumni yang menjabat sebagai CEO pasti punya tanggung jawab besar. Si Rudi baru saja diangkat jadi CEO startup fintech.",
+                reply_context: "Berarti Rudi sekarang punya tanggung jawab yang besar di pundaknya.",
+                options: [
+                    { text: "Kesimpulan Maya: PASTI BENAR", type: "logic_correct", feedback: "Valid! (Modus Ponens). CEO -> Tanggung Jawab. Rudi CEO -> Rudi Tanggung Jawab. 🧠" },
+                    { text: "Kesimpulan Maya: PASTI SALAH", type: "logic_wrong", feedback: "Salah. 📉" },
+                    { text: "TIDAK DAPAT DISIMPULKAN", type: "logic_wrong", feedback: "Salah. 📉" }
+                ]
+            }
+        ];
+
         // --- GAME LOGIC ---
         
-        let currentGameMode = 'rt'; // 'rt' or 'keluarga'
+        let currentGameMode = 'rt'; // 'rt', 'keluarga', or 'alumni'
         let gameQuestions = [];
         let currentLevel = 0;
-        let score = 0; // Annoyance for RT, THR for Keluarga
+        let score = 0; 
         const totalQuestionsPerSession = 5;
 
         function shuffleArray(array) {
@@ -577,7 +784,6 @@
             const contentEl = document.getElementById('mission-content');
             
             if (mode === 'rt') {
-                // Set Briefing RT
                 titleEl.innerText = "Misi: Wakil Suara Warga";
                 titleEl.className = "text-lg font-bold";
                 contentEl.innerHTML = `
@@ -593,10 +799,9 @@
                         </ul>
                     </div>
                 `;
-            } else {
-                // Set Briefing Keluarga
+            } else if (mode === 'keluarga') {
                 titleEl.innerText = "Misi: Demi THR Lebaran";
-                titleEl.className = "text-lg font-bold text-yellow-100";
+                titleEl.className = "text-lg font-bold text-yellow-600";
                 contentEl.innerHTML = `
                     <p class="text-gray-700 leading-relaxed mb-4 text-sm md:text-base">
                         Lebaran sebentar lagi. Om dan Tante sedang aktif membagikan "info-info" di grup.
@@ -608,6 +813,23 @@
                             <li>Pilih jawaban yang <span class="font-bold text-green-600">TIDAK MEMPERLEMAH</span> (Setuju/Netral).</li>
                             <li>Jangan membantah! Nanti dicoret dari daftar penerima THR.</li>
                             <li>Target: Kumpulkan THR (Score 100%)!</li>
+                        </ul>
+                    </div>
+                `;
+            } else {
+                // ALUMNI
+                titleEl.innerText = "Misi: Si Paling Logis";
+                titleEl.className = "text-lg font-bold text-purple-600";
+                contentEl.innerHTML = `
+                    <p class="text-gray-700 leading-relaxed mb-4 text-sm md:text-base">
+                        Siska sedang menyebar gosip di grup alumni dengan logika yang sering melompat-lompat.
+                    </p>
+                    <div class="bg-purple-50 p-4 rounded-lg mb-4 text-sm border-l-4 border-purple-500">
+                        <p class="font-semibold text-gray-800 mb-1 italic">Tugas Anda:</p>
+                        <ul class="list-disc ml-4 space-y-1 text-gray-600">
+                            <li>Analisis premis dan kesimpulan Siska.</li>
+                            <li>Tentukan apakah kesimpulannya: <br><b>Pasti Benar</b>, <b>Pasti Salah</b>, atau <b>Tidak Dapat Disimpulkan</b>.</li>
+                            <li>Target: Jadilah Alumni Paling Logis!</li>
                         </ul>
                     </div>
                 `;
@@ -635,31 +857,42 @@
             const hint = document.getElementById('options-hint');
 
             if (currentGameMode === 'rt') {
-                // Load Soal RT
                 const shuffled = shuffleArray([...bankSoalRT]); 
                 gameQuestions = shuffled.slice(0, totalQuestionsPerSession);
                 
-                // Visual RT
                 avatar.src = "https://images.unsplash.com/photo-1560717845-968823efbee1?auto=format&fit=crop&w=150&q=80";
                 title.innerText = "Grup Warga Komplek Berkah";
                 members.innerText = "Ibu RT, Pak RW, Anda...";
                 scoreLabel.innerText = "🔥 KEKESALAN";
                 bar.className = "progress-bar h-full bg-gradient-to-r from-orange-400 to-red-600";
                 intro.innerText = "Misi: Patahkan Argumen Ibu RT!";
+                intro.className = "bg-red-100/90 text-red-800 text-xs p-2 rounded-lg self-center px-4 mb-2 shadow-sm font-semibold text-center border border-red-200 shrink-0";
                 hint.innerText = "Pilih Balasan (Target: Perlemah)";
-            } else {
-                // Load Soal Keluarga
+            } else if (currentGameMode === 'keluarga') {
                 const shuffled = shuffleArray([...bankSoalKeluarga]);
                 gameQuestions = shuffled.slice(0, totalQuestionsPerSession);
 
-                // Visual Keluarga
                 avatar.src = "https://api.dicebear.com/7.x/avataaars/svg?seed=Grandpa&backgroundColor=b6e3f4";
                 title.innerText = "Keluarga Besar (Haji Somad)";
                 members.innerText = "Om Agus, Tante Yuni, Anda...";
                 scoreLabel.innerText = "💸 THR METER";
                 bar.className = "progress-bar h-full bg-gradient-to-r from-yellow-400 to-green-600";
                 intro.innerText = "Misi: Cari Muka Demi THR!";
+                intro.className = "bg-green-100/90 text-green-800 text-xs p-2 rounded-lg self-center px-4 mb-2 shadow-sm font-semibold text-center border border-green-200 shrink-0";
                 hint.innerText = "Pilih Balasan (Target: JANGAN Memperlemah)";
+            } else {
+                // ALUMNI
+                const shuffled = shuffleArray([...bankSoalAlumni]);
+                gameQuestions = shuffled.slice(0, totalQuestionsPerSession);
+
+                avatar.src = "https://api.dicebear.com/7.x/avataaars/svg?seed=Siska&backgroundColor=e9d5ff";
+                title.innerText = "Alumni SMA 1 (Julid)";
+                members.innerText = "Siska, Budi, Anda...";
+                scoreLabel.innerText = "🧠 LOGIKA";
+                bar.className = "progress-bar h-full bg-gradient-to-r from-blue-400 to-purple-600";
+                intro.innerText = "Misi: Uji Validitas Kesimpulan Siska!";
+                intro.className = "bg-purple-100/90 text-purple-800 text-xs p-2 rounded-lg self-center px-4 mb-2 shadow-sm font-semibold text-center border border-purple-200 shrink-0";
+                hint.innerText = "Analisis Kesimpulan (Valid/Invalid)";
             }
 
             updateScoreBar();
@@ -674,28 +907,41 @@
 
         // 3. GAME LOOP
         function initLevel() {
-            // Check End Game
             if (currentLevel >= gameQuestions.length) {
                 checkFinalResult();
                 return;
             }
-            // Khusus RT: kalau score 100 langsung menang (dikick)
             if (currentGameMode === 'rt' && score >= 100) {
                 checkFinalResult();
                 return;
             }
-            // Khusus Keluarga: Tidak ada auto-win di tengah jalan, harus survive sampai akhir
 
             const indicator = document.getElementById('typing-indicator');
-            const senderName = currentGameMode === 'rt' ? 'Ibu RT' : gameQuestions[currentLevel].sender;
+            let senderName = 'Sender';
+            if (currentGameMode === 'rt') senderName = 'Ibu RT';
+            else if (currentGameMode === 'keluarga') senderName = gameQuestions[currentLevel].sender;
+            else senderName = 'Siska';
             
             indicator.innerText = `${senderName} sedang mengetik...`;
             indicator.classList.remove('hidden');
             
             setTimeout(() => {
                 indicator.classList.add('hidden');
+                
+                // Show Question Logic
                 addMessage(gameQuestions[currentLevel].statement, 'left', senderName);
-                showOptions();
+                
+                // For Alumni mode, show the conclusion as a second bubble immediately
+                if (currentGameMode === 'alumni') {
+                    setTimeout(() => {
+                        const conclusion = gameQuestions[currentLevel].reply_context;
+                        addMessage(conclusion, 'left', 'Maya');
+                        showOptions();
+                    }, 800);
+                } else {
+                    showOptions();
+                }
+                
             }, 1000);
         }
 
@@ -722,7 +968,9 @@
             grid.innerHTML = '';
             
             let currentOptions = [...gameQuestions[currentLevel].options];
-            currentOptions = shuffleArray(currentOptions);
+            if (currentGameMode !== 'alumni') {
+                currentOptions = shuffleArray(currentOptions); // Alumni options usually fixed order (Benar/Salah/Tidak) but shuffle is okay too
+            }
 
             currentOptions.forEach((opt) => {
                 const btn = document.createElement('button');
@@ -740,17 +988,15 @@
             setTimeout(() => {
                 // --- SCORING LOGIC ---
                 if (currentGameMode === 'rt') {
-                    // RT: Weaken = Good (+), Strengthen/Neutral = Bad (-)
                     if (option.type === 'weaken') score += 25;
                     else if (option.type === 'strengthen') score = Math.max(0, score - 10);
+                } else if (currentGameMode === 'keluarga') {
+                    if (option.type === 'weaken') score = Math.max(0, score - 20); 
+                    else score += 20; 
                 } else {
-                    // KELUARGA: Weaken = Bad (-), Strengthen/Neutral = Good (+)
-                    if (option.type === 'weaken') {
-                        score = Math.max(0, score - 20); // Kritik mengurangi THR
-                    } else {
-                        // Strengthen atau Neutral menambah THR
-                        score += 20; 
-                    }
+                    // ALUMNI
+                    if (option.type === 'logic_correct') score += 20; // 5 soal x 20 = 100
+                    else score = Math.max(0, score - 10);
                 }
 
                 updateScoreBar();
@@ -792,8 +1038,7 @@
                     title.innerText = "GAGAL DIKICK";
                     desc.innerText = `Skor Kekesalan hanya ${score}%. Anda kurang kritis! Coba lagi serang argumennya!`;
                 }
-            } else {
-                // Mode Keluarga
+            } else if (currentGameMode === 'keluarga') {
                 if (score >= 80) {
                     icon.innerText = "💰";
                     title.innerText = "THR CAIR!";
@@ -802,6 +1047,17 @@
                     icon.innerText = "😭";
                     title.innerText = "DICORET DARI KK";
                     desc.innerText = `Skor THR hanya ${score}%. Anda terlalu banyak membantah Om dan Tante. Lebaran tahun ini Anda cuma dapat rengginang.`;
+                }
+            } else {
+                // ALUMNI
+                if (score >= 80) {
+                    icon.innerText = "🎓";
+                    title.innerText = "SI PALING LOGIS";
+                    desc.innerText = `HEBAT! Logika deduksi Anda tajam. Anda berhasil meluruskan gosip murahan Siska dengan fakta logika. Grup Alumni jadi tercerahkan!`;
+                } else {
+                    icon.innerText = "🤪";
+                    title.innerText = "KORBAN GOSIP";
+                    desc.innerText = `Skor Logika hanya ${score}%. Anda mudah termakan kesimpulan yang salah. Ayo belajar silogisme lagi!`;
                 }
             }
         }
