@@ -583,16 +583,16 @@ const bankSoalAlumni = [
             { text: "TIDAK DAPAT DISIMPULKAN", type: "logic_wrong", feedback: "Salah. Premis dan fakta sudah cukup untuk menarik kesimpulan pasti. 📉" }
         ]
     },
-    // 2. Affirming the Consequent (Invalid)
+    // 2. Kontradiksi / Mustahil (PASTI SALAH) - NEW
     {
         id: 2,
         sender: "Siska",
-        statement: "Tahu nggak, kalau sudah jadi Manajer di perusahaan multinasional, jadwalnya pasti padat dan sering lembur. Si Andi itu aku lihat sering banget lembur sampai malam.",
-        reply_context: "Wah, pasti si Andi sekarang sudah naik jabatan jadi Manajer itu!",
+        statement: "Aturannya jelas: Semua peserta yang lulus seleksi wawancara pasti dapat email undangan *Gala Dinner*. Si Budi sampai detik ini tidak dapat email undangan apapun.",
+        reply_context: "Tapi aku yakin banget, si Budi itu pasti lulus seleksi wawancara!",
         options: [
-            { text: "Kesimpulan Siska: TIDAK DAPAT DISIMPULKAN", type: "logic_correct", feedback: "Cerdas! (Fallacy). Lembur belum tentu Manajer (bisa saja staf biasa yang banyak kerjaan). 🧠" },
-            { text: "Kesimpulan Siska: PASTI BENAR", type: "logic_wrong", feedback: "Jebakan! Premisnya 'Manajer -> Lembur', bukan 'Lembur -> Manajer'. 📉" },
-            { text: "Kesimpulan Siska: PASTI SALAH", type: "logic_wrong", feedback: "Belum tentu salah juga, mungkin saja dia Manajer. Jadi 'Tidak Dapat Disimpulkan'. 📉" }
+            { text: "Kesimpulan Siska: PASTI SALAH", type: "logic_correct", feedback: "Tepat! (Modus Tollens). Lulus -> Dapat Email. Tidak Email -> Tidak Lulus. Menyimpulkan 'Lulus' adalah kontradiksi mutlak. 🧠" },
+            { text: "Kesimpulan Siska: PASTI BENAR", type: "logic_wrong", feedback: "Jelas salah. Faktanya dia tidak dapat email, mustahil dia lulus (berdasarkan premis). 📉" },
+            { text: "TIDAK DAPAT DISIMPULKAN", type: "logic_wrong", feedback: "Salah. Datanya sudah cukup untuk menyalahkan kesimpulan Siska. 📉" }
         ]
     },
     // 3. Modus Tollens (Valid)
@@ -643,16 +643,16 @@ const bankSoalAlumni = [
             { text: "TIDAK DAPAT DISIMPULKAN", type: "logic_wrong", feedback: "Salah. Kesimpulan ini valid. 📉" }
         ]
     },
-    // 7. Denying the Antecedent (Invalid)
+    // 7. Kontradiksi Kategori (PASTI SALAH) - NEW
     {
         id: 7,
         sender: "Siska",
-        statement: "Kalau reuni diadakan di Hotel Bintang 5, pasti tiket masuknya mahal. Nah, tahun ini reuni kita diadakannya di Aula Sekolah, bukan hotel.",
-        reply_context: "Asyik, berarti tiket masuknya pasti tidak mahal!",
+        statement: "Semua vegetarian sejati pasti tidak memakan daging sapi. Si Sarah itu terkenal sebagai vegetarian sejati sejak kuliah.",
+        reply_context: "Nah, makanya aku yakin banget si Sarah pasti memesan Steak Iga Sapi di acara ini.",
         options: [
-            { text: "Kesimpulan Siska: TIDAK DAPAT DISIMPULKAN", type: "logic_correct", feedback: "Jeli! Hotel -> Mahal. Bukan Hotel -> Belum tentu murah (bisa mahal karena katering premium). 🧠" },
-            { text: "Kesimpulan Siska: PASTI BENAR", type: "logic_wrong", feedback: "Salah. Premis tidak melarang tempat lain (Aula) untuk mahal juga. 📉" },
-            { text: "Kesimpulan Siska: PASTI SALAH", type: "logic_wrong", feedback: "Belum tentu salah, tapi tidak bisa dipastikan dari premis itu saja. 📉" }
+            { text: "Kesimpulan Siska: PASTI SALAH", type: "logic_correct", feedback: "Analisis tajam! (Kontradiksi). Premis melarang Sarah makan sapi. Kesimpulan Siska justru bilang dia makan sapi. Mustahil. 🧠" },
+            { text: "Kesimpulan Siska: PASTI BENAR", type: "logic_wrong", feedback: "Hah? Jelas-jelas dia vegetarian, masa makan sapi? 📉" },
+            { text: "TIDAK DAPAT DISIMPULKAN", type: "logic_wrong", feedback: "Salah. Ini bukan abu-abu, ini jelas salah. 📉" }
         ]
     },
     // 8. Silogisme Kategorik (Valid)
@@ -727,16 +727,16 @@ const bankSoalAlumni = [
             { text: "TIDAK DAPAT DISIMPULKAN", type: "logic_wrong", feedback: "Salah. Syarat 'Hanya' mengunci kesimpulan. 📉" }
         ]
     },
-    // 14. Sebab Akibat (Invalid)
+    // 14. Kontradiksi Sebab Akibat (PASTI SALAH) - NEW
     {
         id: 14,
         sender: "Siska",
-        statement: "Kalau hujan deras, acara *outdoor* pasti dibatalkan. Hari ini acara *outdoor* alumni dibatalkan.",
-        reply_context: "Pasti tadi hujan deras banget ya?",
+        statement: "Jika listrik padam, maka acara musik pasti dihentikan. Saat ini listrik gedung sedang padam total.",
+        reply_context: "Tenang saja, acara musik pasti tetap berlanjut dengan meriah kok!",
         options: [
-            { text: "Kesimpulan Siska: TIDAK DAPAT DISIMPULKAN", type: "logic_correct", feedback: "Pintar! (Affirming the Consequent). Batal bisa karena izin dicabut, bukan cuma hujan. 🧠" },
-            { text: "Kesimpulan Siska: PASTI BENAR", type: "logic_wrong", feedback: "Salah. Kita tidak bisa membalik logika 'Jika P maka Q' menjadi 'Jika Q maka P'. 📉" },
-            { text: "Kesimpulan Siska: PASTI SALAH", type: "logic_wrong", feedback: "Mungkin saja hujan, tapi tidak 'PASTI'. 📉" }
+            { text: "Kesimpulan Siska: PASTI SALAH", type: "logic_correct", feedback: "Pintar! (Modus Ponens dilanggar). Listrik Padam -> Musik Stop. Menyimpulkan Musik Lanjut adalah kesalahan fatal. 🧠" },
+            { text: "Kesimpulan Siska: PASTI BENAR", type: "logic_wrong", feedback: "Salah. Premis bilang musik harus stop, kenapa dibilang lanjut? 📉" },
+            { text: "Kesimpulan Siska: TIDAK DAPAT DISIMPULKAN", type: "logic_wrong", feedback: "Salah. Ini sudah pasti salah. 📉" }
         ]
     },
     // 15. Kuantor "Semua" terbalik (Invalid)
@@ -775,16 +775,16 @@ const bankSoalAlumni = [
             { text: "TIDAK DAPAT DISIMPULKAN", type: "logic_wrong", feedback: "Salah. 📉" }
         ]
     },
-    // 18. Jebakan "Sebagian" (Invalid)
+    // 18. Kontradiksi Universal (PASTI SALAH) - NEW
     {
         id: 18,
         sender: "Siska",
-        statement: "Mayoritas (sebagian besar) alumni angkatan kita sudah menikah. Si Wawan adalah alumni angkatan kita.",
-        reply_context: "Berarti si Wawan pasti sudah menikah.",
+        statement: "Tidak ada satu pun donatur acara yang boleh duduk di kursi belakang. Pak Haryo adalah donatur utama acara ini.",
+        reply_context: "Oleh karena itu, Pak Haryo pasti duduk di kursi paling belakang.",
         options: [
-            { text: "Kesimpulan Siska: TIDAK DAPAT DISIMPULKAN", type: "logic_correct", feedback: "Cerdas! 'Mayoritas' bukan 'Semua'. Wawan bisa jadi masuk minoritas yang jomblo. 🧠" },
-            { text: "Kesimpulan Siska: PASTI BENAR", type: "logic_wrong", feedback: "Salah. Peluang besar iya, tapi tidak 'PASTI'. 📉" },
-            { text: "Kesimpulan Siska: PASTI SALAH", type: "logic_wrong", feedback: "Salah. 📉" }
+            { text: "Kesimpulan Siska: PASTI SALAH", type: "logic_correct", feedback: "Tepat! Premis melarang donatur di belakang. Kesimpulan malah menaruhnya di belakang. Kontradiksi. 🧠" },
+            { text: "Kesimpulan Siska: PASTI BENAR", type: "logic_wrong", feedback: "Ngawur. Premisnya melarang hal itu terjadi. 📉" },
+            { text: "Kesimpulan Siska: TIDAK DAPAT DISIMPULKAN", type: "logic_wrong", feedback: "Salah. Ini sudah pasti salah. 📉" }
         ]
     },
     // 19. Silogisme Kategorik Negatif (Valid)
@@ -812,7 +812,6 @@ const bankSoalAlumni = [
         ]
     }
 ];
-
         // --- DATA SOAL PANITIA / ASUMSI (20 SOAL) ---
         // Misi: Cari ASUMSI (Assumption) yang mendasari pernyataan Ketua
         // type: 'correct_assumption' (Score +)
